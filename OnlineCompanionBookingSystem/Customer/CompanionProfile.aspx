@@ -152,6 +152,8 @@
                                                     <asp:TextBox ID="txtBookingDate" runat="server" TextMode="Date" CssClass="booking-input" />
                                                     <label>Time</label>
                                                     <asp:TextBox ID="txtBookingTime" runat="server" TextMode="Time" CssClass="booking-input" />
+                                                    <!-- Clears this package's date and time (no page reload); only shown once something is selected -->
+                                                    <button type="button" class="btn-clear-schedule" title="Clear the selected date and time" hidden>Clear</button>
                                                 </div>
                                                 <asp:Button ID="btnSelectPackage" runat="server" Text="Book Now" CssClass="btn-book-pkg" 
                                                     CommandName="BookPackage" CommandArgument='<%# Eval("PackageID") %>' />
@@ -180,6 +182,40 @@
                 }
                 picker.addEventListener('change', update);
                 update();
+            })();
+        </script>
+        <script>
+            // "Clear" button next to each package's date and time: empties them (no reload) and shows only when something is selected
+            (function () {
+                function row(el) { return el.closest('.booking-schedule'); }
+
+                function update(schedule) {
+                    var inputs = schedule.querySelectorAll('.booking-input');
+                    var clear = schedule.querySelector('.btn-clear-schedule');
+                    var hasValue = false;
+                    for (var i = 0; i < inputs.length; i++) if (inputs[i].value) hasValue = true;
+                    if (clear) clear.hidden = !hasValue;
+                }
+
+                document.addEventListener('input', function (e) {
+                    if (e.target.classList && e.target.classList.contains('booking-input')) update(row(e.target));
+                });
+
+                document.addEventListener('click', function (e) {
+                    var button = e.target.closest ? e.target.closest('.btn-clear-schedule') : null;
+                    if (!button) return;
+                    var schedule = row(button);
+                    var inputs = schedule.querySelectorAll('.booking-input');
+                    for (var i = 0; i < inputs.length; i++) inputs[i].value = '';
+                    update(schedule);
+                    // Hide an old "please choose..." message, since the selection it talked about is gone
+                    var message = document.getElementById('<%= lblBookingMessage.ClientID %>');
+                    if (message) message.style.display = 'none';
+                });
+
+                // Fields keep their values after a failed booking attempt, so show Clear for those as well
+                var schedules = document.querySelectorAll('.booking-schedule');
+                for (var i = 0; i < schedules.length; i++) update(schedules[i]);
             })();
         </script>
         <script src="../Scripts/nav-counts.js"></script>

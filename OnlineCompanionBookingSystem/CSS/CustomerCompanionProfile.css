@@ -638,3 +638,27 @@ body {
     color: #94a3b8;
     font-weight: 500;
 }
+
+/* "Clear" button for a package's date and time */
+.btn-clear-schedule {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 7px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+
+.btn-clear-schedule:hover {
+    color: #b91c1c;
+    border-color: #fca5a5;
+    background: #fef2f2;
+}
+
+.btn-clear-schedule[hidden] {
+    display: none;
+}
