@@ -144,7 +144,7 @@ namespace OnlineCompanionBookingSystem.Companion
         // Adds a new package. Duration is limited to 1-30 (hours or days) and the rate to whole pesos from 50 to 50,000.
         protected void btnAddPackage_Click(object sender, EventArgs e)
         {
-            Page.Validate();
+            Page.Validate("AddPackage");   // only the Add form's validators; editing a package below must not need them
             if (!Page.IsValid) return;
 
             // Validate numeric values server-side because browser validation can be bypassed.

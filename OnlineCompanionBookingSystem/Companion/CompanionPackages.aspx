@@ -97,7 +97,7 @@
                             <div class="form-field form-field-wide">
                                 <label for="txtPackageName">Package name</label>
                                 <asp:TextBox ID="txtPackageName" runat="server" CssClass="package-input" MaxLength="100" placeholder="e.g., Standard Companion Session" />
-                                <asp:RequiredFieldValidator ID="rfvPackageName" runat="server" ControlToValidate="txtPackageName" CssClass="field-error" Display="Dynamic" ErrorMessage="Package name is required." />
+                                <asp:RequiredFieldValidator ID="rfvPackageName" runat="server" ValidationGroup="AddPackage" ControlToValidate="txtPackageName" CssClass="field-error" Display="Dynamic" ErrorMessage="Package name is required." />
                             </div>
                             <div class="form-field">
                                 <label for="txtDuration">Duration</label>
@@ -108,13 +108,13 @@
                                         <asp:ListItem Text="Day" Value="Day" />
                                     </asp:DropDownList>
                                 </div>
-                                <asp:RequiredFieldValidator ID="rfvDuration" runat="server" ControlToValidate="txtDuration" CssClass="field-error" Display="Dynamic" ErrorMessage="Duration is required." />
+                                <asp:RequiredFieldValidator ID="rfvDuration" runat="server" ValidationGroup="AddPackage" ControlToValidate="txtDuration" CssClass="field-error" Display="Dynamic" ErrorMessage="Duration is required." />
                             </div>
                             <div class="form-field">
                                 <label for="txtRate">Rate (&#8369;)</label>
                                 <asp:TextBox ID="txtRate" runat="server" CssClass="package-input" TextMode="Number" min="50" max="50000" step="1" inputmode="numeric" placeholder="300" data-digits-only="true" data-max="50000" />
-                                <asp:RequiredFieldValidator ID="rfvRate" runat="server" ControlToValidate="txtRate" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate is required." />
-                                <asp:RangeValidator ID="rvRate" runat="server" ControlToValidate="txtRate" Type="Integer" MinimumValue="50" MaximumValue="50000" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate must be a whole number from 50 to 50,000 pesos." />
+                                <asp:RequiredFieldValidator ID="rfvRate" runat="server" ValidationGroup="AddPackage" ControlToValidate="txtRate" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate is required." />
+                                <asp:RangeValidator ID="rvRate" runat="server" ValidationGroup="AddPackage" ControlToValidate="txtRate" Type="Integer" MinimumValue="50" MaximumValue="50000" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate must be a whole number from 50 to 50,000 pesos." />
                             </div>
                             <div class="form-field form-field-full">
                                 <label for="txtDescription">Description <span>(optional)</span></label>
@@ -122,7 +122,7 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <asp:Button ID="btnAddPackage" runat="server" Text="Add Package" CssClass="btn-primary" OnClick="btnAddPackage_Click" />
+                            <asp:Button ID="btnAddPackage" runat="server" ValidationGroup="AddPackage" Text="Add Package" CssClass="btn-primary" OnClick="btnAddPackage_Click" />
                         </div>
                     </section>
 
@@ -157,8 +157,8 @@
                                         <asp:TextBox ID="txtEditRate" runat="server" Text='<%# Eval("Rate", "{0:0}") %>' CssClass="package-edit-input" TextMode="Number" min="50" max="50000" step="1" inputmode="numeric" data-digits-only="true" data-max="50000" />
                                         <span>&#8369;</span>
                                     </div>
-                                    <asp:LinkButton ID="btnSavePackage" runat="server" CommandName="SavePackage" CommandArgument='<%# Eval("PackageID") %>' CssClass="btn-small btn-save">Save</asp:LinkButton>
-                                    <asp:LinkButton ID="btnDeletePackage" runat="server" CommandName="DeletePackage" CommandArgument='<%# Eval("PackageID") %>' CssClass="btn-small btn-delete" OnClientClick="return confirm('Remove this package? Existing bookings will not be changed.');">Remove</asp:LinkButton>
+                                    <asp:LinkButton ID="btnSavePackage" runat="server" CausesValidation="false" CommandName="SavePackage" CommandArgument='<%# Eval("PackageID") %>' CssClass="btn-small btn-save">Save</asp:LinkButton>
+                                    <asp:LinkButton ID="btnDeletePackage" runat="server" CausesValidation="false" CommandName="DeletePackage" CommandArgument='<%# Eval("PackageID") %>' CssClass="btn-small btn-delete" OnClientClick="return confirm('Remove this package? Existing bookings will not be changed.');">Remove</asp:LinkButton>
                                 </div>
                             </ItemTemplate>
                             <FooterTemplate></div></FooterTemplate>
