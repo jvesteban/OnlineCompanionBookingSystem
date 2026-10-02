@@ -276,6 +276,8 @@ BookingStatus.Apply(dt);   // adds the display status (On-going, ...) worked out
                         tx.Commit();
                     }
                 }
+                // The companion is told by email too (a failed email never undoes the cancellation)
+                EmailHelper.SendBookingCancelledByCustomer(bookingID);
                 lblMessage.Text = "Your booking has been successfully cancelled.";
                 lblMessage.Visible = true;
             }

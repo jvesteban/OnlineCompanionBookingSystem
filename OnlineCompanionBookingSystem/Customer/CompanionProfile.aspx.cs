@@ -408,6 +408,10 @@ namespace OnlineCompanionBookingSystem.Customer
                             }
 
                             transaction.Commit();
+
+                            // The booking is saved. Email the companion too, so they know even when logged out
+                            // (a failed email never undoes the booking)
+                            EmailHelper.SendBookingRequestToCompanion(newBookingId);
                         }
                     }
 

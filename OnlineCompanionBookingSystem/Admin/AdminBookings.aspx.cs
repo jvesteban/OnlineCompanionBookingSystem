@@ -345,6 +345,9 @@ namespace OnlineCompanionBookingSystem.Admin
                         }
                     }
 
+                    // Both people are told by email too (a failed email never undoes the cancellation)
+                    EmailHelper.SendBookingCancelledByAdmin(bookingId);
+
                     ShowSweetAlert("Booking Cancelled", $"Booking #{bookingId} has been cancelled.", "success");
 
                     LoadBookingStats();

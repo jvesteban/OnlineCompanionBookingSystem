@@ -246,6 +246,9 @@ namespace OnlineCompanionBookingSystem.Companion
                         }
                     }
 
+                    // Tell the customer by email (their notification was already saved above)
+                    EmailHelper.SendBookingDecisionToCustomer(bookingId, newStatus == "Confirmed");
+
                     ShowMessage($"Booking request has been successfully {newStatus.ToLowerInvariant()}.", "success");
                     BindBookingRequests(Convert.ToInt32(Session["UserID"]));
                 }
