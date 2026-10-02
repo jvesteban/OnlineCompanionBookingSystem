@@ -189,6 +189,18 @@ namespace OnlineCompanionBookingSystem.Companion
                                     }
                                 }
 
+                                // Accepting must not create a double-booking: it cannot overlap a booking this companion already confirmed
+                                if (newStatus == "Confirmed")
+                                {
+                                    string conflict = BookingConflicts.CheckAccept(connection, transaction, bookingId, companionId);
+                                    if (conflict != null)
+                                    {
+                                        transaction.Rollback();
+                                        ShowMessage(conflict, "error");
+                                        return;
+                                    }
+                                }
+
                                 // Step 2: change the booking status (Confirmed or Declined).
                                 const string updateQuery = @"
                                     UPDATE Bookings

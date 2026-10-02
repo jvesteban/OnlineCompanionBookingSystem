@@ -85,6 +85,15 @@ if (!string.Equals(status, "Confirmed", StringComparison.OrdinalIgnoreCase)) ret
             return info;
         }
 
+        // Start and end of a booking: date + time, and that plus the package length. False when the date or time cannot be read.
+        public static bool TryGetSchedule(object bookingDate, object bookingTime, object duration, out DateTime start, out DateTime end)
+        {
+            end = DateTime.MinValue;
+            if (!TryGetStart(bookingDate, bookingTime, out start)) return false;
+            end = start + ParseDuration(duration);
+            return true;
+        }
+
         // A customer may cancel a booking that is Pending, or Confirmed but not started yet.
         // Once it is On-going or past its end, only the companion can complete it.
         public static bool CanCustomerCancel(string status, object bookingDate, object bookingTime, object duration, DateTime now)

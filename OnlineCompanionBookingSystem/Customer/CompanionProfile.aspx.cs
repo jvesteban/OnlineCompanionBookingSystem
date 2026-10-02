@@ -348,6 +348,18 @@ namespace OnlineCompanionBookingSystem.Customer
                         BookingActivities.EnsureSchema(connection);   // creates the BookingActivities table the first time
                         using (SqlTransaction transaction = connection.BeginTransaction())
                         {
+                            // No double-booking: the time must not overlap this customer's other bookings or one the
+                            // companion already confirmed (checked inside the transaction, so two requests cannot both pass)
+                            string conflict = BookingConflicts.CheckNewBooking(connection, transaction, customerId, CompanionId, packageId, bookingDate, TimeSpan.Parse(bookingTime, System.Globalization.CultureInfo.InvariantCulture));
+                            if (conflict != null)
+                            {
+                                transaction.Rollback();
+                                lblMsg.Text = conflict;
+                                lblMsg.CssClass = "booking-message error";
+                                lblMsg.Visible = true;
+                                return;
+                            }
+
                             const string query = @"
                                 INSERT INTO Bookings (CustomerID, CompanionID, PackageID, BookingDate, BookingTime, Status, DateCreated)
                                 OUTPUT INSERTED.BookingID
