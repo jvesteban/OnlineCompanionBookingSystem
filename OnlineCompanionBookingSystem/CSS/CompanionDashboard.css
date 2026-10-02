@@ -373,6 +373,10 @@ body {
 .user-avatar {
     width: 40px;
     height: 40px;
+    background: var(--blue);   /* same blue as the avatar in the account dropdown */
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
 }
 
 .user-avatar-image {

@@ -12,6 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="smBrowse" runat="server" />
 
         <div class="dashboard-wrapper">
 
@@ -109,19 +110,19 @@
                     <div class="filter-inputs-grid">
                         <div class="filter-group search-group">
                             <label>Search Companion</label>
-                            <asp:TextBox ID="txtSearch" runat="server" CssClass="filter-input" Placeholder="Search by name or keyword..."></asp:TextBox>
+                            <asp:TextBox ID="txtSearch" runat="server" CssClass="filter-input" Placeholder="Search by name or keyword..." autocomplete="off"></asp:TextBox>
                         </div>
 
                         <div class="filter-group">
                             <label>Activity / Service</label>
-                            <asp:DropDownList ID="ddlActivity" runat="server" CssClass="filter-select">
+                            <asp:DropDownList ID="ddlActivity" runat="server" CssClass="filter-select" AutoPostBack="true" OnSelectedIndexChanged="btnFilter_Click">
                                 <asp:ListItem Text="All Activities" Value="All" />
                             </asp:DropDownList>
                         </div>
 
                         <div class="filter-group">
                             <label>Sort By</label>
-                            <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="filter-select">
+                            <asp:DropDownList ID="ddlSortBy" runat="server" CssClass="filter-select" AutoPostBack="true" OnSelectedIndexChanged="btnFilter_Click">
                                 <asp:ListItem Text="Highest Rated" Value="RatingDesc" />
                                 <asp:ListItem Text="Most Reviews" Value="ReviewsDesc" />
                                 <asp:ListItem Text="Price: Low to High" Value="PriceAsc" />
@@ -130,13 +131,21 @@
                         </div>
 
                         <div class="filter-actions">
-                            <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="btn-filter-apply" OnClick="btnFilter_Click" />
+                            <asp:Button ID="btnFilter" runat="server" Text="Filter" CssClass="btn-filter-apply filter-auto-hidden" OnClick="btnFilter_Click" UseSubmitBehavior="false" CausesValidation="false" />
                             <asp:Button ID="btnReset" runat="server" Text="Reset" CssClass="btn-filter-reset" OnClick="btnReset_Click" />
                         </div>
                     </div>
                 </div>
 
                 <!-- ===== COMPANIONS GRID ===== -->
+                <asp:UpdatePanel ID="upResults" runat="server" UpdateMode="Conditional">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnFilter" EventName="Click" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlActivity" EventName="SelectedIndexChanged" />
+                        <asp:AsyncPostBackTrigger ControlID="ddlSortBy" EventName="SelectedIndexChanged" />
+                        <asp:PostBackTrigger ControlID="btnResetEmpty" />
+                    </Triggers>
+                    <ContentTemplate>
                 <div class="section-block">
                     <div class="section-header">
                         <h3 class="section-title">Available Companions (<asp:Literal ID="litCompanionCount" runat="server" Text="0" />)</h3>
@@ -187,6 +196,8 @@
                         <asp:Button ID="btnResetEmpty" runat="server" Text="Clear Filters" CssClass="btn-filter-apply" OnClick="btnReset_Click" />
                     </asp:Panel>
                 </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
 
             </div>
         </div>
@@ -205,6 +216,39 @@
                     card.classList.remove('show');
                 }
             });
+        </script>
+        <!-- Live search: results update while typing (no Filter button needed) -->
+        <script type="text/javascript">
+            (function () {
+                var box = document.getElementById('<%= txtSearch.ClientID %>');
+                if (!box) return;
+                var timer = null;
+                var lastValue = box.value;
+
+                function refresh() {
+                    clearTimeout(timer);
+                    if (box.value === lastValue) return;   // nothing changed (for example an arrow key)
+                    lastValue = box.value;
+                    __doPostBack('<%= btnFilter.UniqueID %>', '');
+                }
+
+                box.addEventListener('input', function () {
+                    clearTimeout(timer);
+                    timer = setTimeout(refresh, 300);   // short pause so the server is not asked on every single letter
+                });
+
+                // Enter searches right away instead of submitting the whole page
+                box.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') { e.preventDefault(); refresh(); }
+                });
+
+                // Dim the results slightly while they are being refreshed
+                var prm = window.Sys && Sys.WebForms && Sys.WebForms.PageRequestManager.getInstance();
+                if (prm) {
+                    prm.add_beginRequest(function () { document.body.classList.add('is-searching'); });
+                    prm.add_endRequest(function () { document.body.classList.remove('is-searching'); });
+                }
+            })();
         </script>
         <script src="../Scripts/site.js"></script>
         <script src="../Scripts/nav-counts.js"></script>

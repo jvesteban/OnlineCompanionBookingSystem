@@ -350,3 +350,16 @@
     color: #94a3b8;
     font-weight: 500;
 }
+
+/* Live search: the Filter button is no longer needed (the script clicks it), and the results dim while refreshing */
+.filter-auto-hidden {
+    display: none !important;
+}
+
+.browse-companions-grid {
+    transition: opacity .15s ease;
+}
+
+body.is-searching .browse-companions-grid {
+    opacity: .55;
+}
