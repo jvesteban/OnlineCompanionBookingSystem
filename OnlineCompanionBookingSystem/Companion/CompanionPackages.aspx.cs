@@ -126,7 +126,22 @@ namespace OnlineCompanionBookingSystem.Companion
             }
         }
 
-        // Adds a new package. Duration is limited to 1-30 (hours or days) and the rate must not be negative.
+        // Package rate: whole pesos only, inside this range (keep in sync with the page's RangeValidator and data-max)
+        private const int MinRate = 50;
+        private const int MaxRate = 50000;
+
+        // True when the text is a whole number of pesos from MinRate to MaxRate (no cents, signs, or letters)
+        private static bool TryParseRate(string text, out decimal rate)
+        {
+            int whole;
+            rate = 0;
+            if (!int.TryParse((text ?? string.Empty).Trim(), System.Globalization.NumberStyles.None, System.Globalization.CultureInfo.InvariantCulture, out whole)) return false;
+            if (whole < MinRate || whole > MaxRate) return false;
+            rate = whole;
+            return true;
+        }
+
+        // Adds a new package. Duration is limited to 1-30 (hours or days) and the rate to whole pesos from 50 to 50,000.
         protected void btnAddPackage_Click(object sender, EventArgs e)
         {
             Page.Validate();
@@ -136,9 +151,9 @@ namespace OnlineCompanionBookingSystem.Companion
             int duration;
             decimal rate;
             if (!int.TryParse(txtDuration.Text, out duration) || duration < 1 || duration > 30 ||
-                !decimal.TryParse(txtRate.Text, out rate) || rate < 0)
+                !TryParseRate(txtRate.Text, out rate))
             {
-                ShowMessage("Enter a valid duration and Philippine peso rate.", false);
+                ShowMessage("Enter a valid duration (1-30) and a rate from 50 to 50,000 pesos (whole numbers only).", false);
                 return;
             }
 
@@ -219,9 +234,9 @@ namespace OnlineCompanionBookingSystem.Companion
                     if (nameBox == null || string.IsNullOrWhiteSpace(nameBox.Text) ||
                         !int.TryParse(durationBox == null ? string.Empty : durationBox.Text, out duration) ||
                         duration < 1 || duration > 30 ||
-                        !decimal.TryParse(rateBox == null ? string.Empty : rateBox.Text, out rate) || rate < 0)
+                        !TryParseRate(rateBox == null ? string.Empty : rateBox.Text, out rate))
                     {
-                        ShowMessage("Enter a valid package name, duration, and rate.", false);
+                        ShowMessage("Enter a valid package name, duration (1-30), and a rate from 50 to 50,000 pesos (whole numbers only).", false);
                         return;
                     }
 

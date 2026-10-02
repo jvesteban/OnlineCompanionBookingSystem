@@ -102,7 +102,7 @@
                             <div class="form-field">
                                 <label for="txtDuration">Duration</label>
                                 <div class="duration-input-group">
-                                    <asp:TextBox ID="txtDuration" runat="server" CssClass="package-input" TextMode="Number" min="1" max="30" step="1" placeholder="1" />
+                                    <asp:TextBox ID="txtDuration" runat="server" CssClass="package-input" TextMode="Number" min="1" max="30" step="1" inputmode="numeric" data-digits-only="true" data-max="30" placeholder="1" />
                                     <asp:DropDownList ID="ddlDurationUnit" runat="server" CssClass="package-input duration-unit">
                                         <asp:ListItem Text="Hour" Value="Hour" />
                                         <asp:ListItem Text="Day" Value="Day" />
@@ -112,8 +112,9 @@
                             </div>
                             <div class="form-field">
                                 <label for="txtRate">Rate (&#8369;)</label>
-                                <asp:TextBox ID="txtRate" runat="server" CssClass="package-input" TextMode="Number" min="0" max="999999.99" step="0.01" placeholder="300.00" />
+                                <asp:TextBox ID="txtRate" runat="server" CssClass="package-input" TextMode="Number" min="50" max="50000" step="1" inputmode="numeric" placeholder="300" data-digits-only="true" data-max="50000" />
                                 <asp:RequiredFieldValidator ID="rfvRate" runat="server" ControlToValidate="txtRate" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate is required." />
+                                <asp:RangeValidator ID="rvRate" runat="server" ControlToValidate="txtRate" Type="Integer" MinimumValue="50" MaximumValue="50000" CssClass="field-error" Display="Dynamic" ErrorMessage="Rate must be a whole number from 50 to 50,000 pesos." />
                             </div>
                             <div class="form-field form-field-full">
                                 <label for="txtDescription">Description <span>(optional)</span></label>
@@ -146,14 +147,14 @@
                                         <asp:TextBox ID="txtEditDescription" runat="server" Text='<%# Eval("Description") %>' CssClass="package-edit-input package-edit-description" MaxLength="500" />
                                     </div>
                                     <div class="package-edit-number">
-                                        <asp:TextBox ID="txtEditDuration" runat="server" Text='<%# GetDurationNumber(Eval("Duration")) %>' CssClass="package-edit-input duration-number" TextMode="Number" min="1" max="30" />
+                                        <asp:TextBox ID="txtEditDuration" runat="server" Text='<%# GetDurationNumber(Eval("Duration")) %>' CssClass="package-edit-input duration-number" TextMode="Number" min="1" max="30" inputmode="numeric" data-digits-only="true" data-max="30" />
                                         <asp:DropDownList ID="ddlEditDurationUnit" runat="server" CssClass="package-edit-input duration-unit">
                                             <asp:ListItem Text="Hour" Value="Hour" />
                                             <asp:ListItem Text="Day" Value="Day" />
                                         </asp:DropDownList>
                                     </div>
                                     <div class="package-edit-number">
-                                        <asp:TextBox ID="txtEditRate" runat="server" Text='<%# Eval("Rate", "{0:0.00}") %>' CssClass="package-edit-input" TextMode="Number" min="0" max="999999.99" step="0.01" />
+                                        <asp:TextBox ID="txtEditRate" runat="server" Text='<%# Eval("Rate", "{0:0}") %>' CssClass="package-edit-input" TextMode="Number" min="50" max="50000" step="1" inputmode="numeric" data-digits-only="true" data-max="50000" />
                                         <span>&#8369;</span>
                                     </div>
                                     <asp:LinkButton ID="btnSavePackage" runat="server" CommandName="SavePackage" CommandArgument='<%# Eval("PackageID") %>' CssClass="btn-small btn-save">Save</asp:LinkButton>
@@ -168,6 +169,7 @@
             </main>
         </div>
         <script src="../Scripts/site.js"></script>
+        <script src="../Scripts/input-limits.js"></script>
         <script src="../Scripts/nav-counts.js"></script>
     </form>
 </body>

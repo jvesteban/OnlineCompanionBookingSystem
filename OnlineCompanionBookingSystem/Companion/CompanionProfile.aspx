@@ -151,7 +151,7 @@
 
                             <div class="form-group full-width">
                                 <label class="form-label">Contact Number</label>
-                                <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-input" Placeholder="e.g., 09123456789"></asp:TextBox>
+                                <asp:TextBox ID="txtContactNumber" runat="server" CssClass="form-input" Placeholder="e.g., 09123456789" MaxLength="11" inputmode="numeric" autocomplete="tel" data-digits-only="true" data-max-digits="11" pattern="09[0-9]{9}" title="11-digit PH mobile number starting with 09 (09XXXXXXXXX)"></asp:TextBox>
                             </div>
 
                             <!-- Shown to customers in the "About Companion" section of your public profile -->
@@ -182,6 +182,7 @@
                 update();
             })();
         </script>
+        <script src="../Scripts/input-limits.js"></script>
         <script src="../Scripts/nav-counts.js"></script>
     </form>
 </body>

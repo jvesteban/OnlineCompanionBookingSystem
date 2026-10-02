@@ -86,6 +86,7 @@
     <Content Include="CSS\Landing.css" />
     <Content Include="Handlers\NavCounts.ashx" />
     <Content Include="Scripts\ui-motion.js" />
+    <Content Include="Scripts\input-limits.js" />
     <Content Include="Scripts\booking-status.js" />
     <Content Include="Scripts\nav-counts.js" />
     <Content Include="Scripts\register-companion.js" />
