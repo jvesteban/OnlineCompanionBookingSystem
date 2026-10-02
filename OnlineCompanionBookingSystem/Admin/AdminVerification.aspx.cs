@@ -86,6 +86,7 @@ namespace OnlineCompanionBookingSystem.Admin
                 {
                     schemaConn.Open();
                     PaymentService.EnsureSchema(schemaConn);
+                    CompanionGender.EnsureColumn(schemaConn);   // the query below reads CompanionProfiles.Gender
                 }
             }
             catch (Exception ex)
@@ -101,6 +102,7 @@ namespace OnlineCompanionBookingSystem.Admin
                                         u.DateCreated AS DateApplied, 
                                         c.DateVerified, 
                                         c.VerificationDocPath AS DocumentPath,
+                                        c.Gender,
                                         u.ProfilePicture,
                                         pay.Amount AS PayAmount, pay.Method AS PayMethod, pay.Status AS PayStatus,
                                         (SELECT STUFF((SELECT ', ' + a.ActivityName

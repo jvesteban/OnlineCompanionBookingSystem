@@ -166,6 +166,7 @@ CREATE TABLE [dbo].[CompanionProfiles](
 	[VerificationStatus] [nvarchar](20) NOT NULL,
 	[VerificationDocPath] [nvarchar](255) NULL,
 	[DateVerified] [datetime] NULL,
+	[Gender] [nvarchar](20) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[CompanionID] ASC

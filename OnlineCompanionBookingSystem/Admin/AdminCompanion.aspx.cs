@@ -151,6 +151,13 @@ namespace OnlineCompanionBookingSystem.Admin
         {
             try
             {
+                // The query below reads CompanionProfiles.Gender, so make sure the column exists
+                using (SqlConnection schemaConn = new SqlConnection(ConnStr))
+                {
+                    schemaConn.Open();
+                    OnlineCompanionBookingSystem.CompanionGender.EnsureColumn(schemaConn);
+                }
+
                 using (SqlConnection conn = new SqlConnection(ConnStr))
                 {
                     string query = @"
@@ -166,6 +173,7 @@ namespace OnlineCompanionBookingSystem.Admin
                             cp.VerificationStatus,
                             cp.Bio,
                             cp.VerificationDocPath,
+                            cp.Gender,
                             (SELECT STUFF((SELECT ', ' + a.ActivityName 
                                            FROM Activities a 
                                            WHERE a.CompanionID = cp.CompanionID 

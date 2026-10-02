@@ -121,6 +121,22 @@
                         </div>
                     </div>
 
+                    <!-- ROW 2B: Gender (the platform accepts female companions only; the admin checks it against the ID) -->
+                    <div class="form-grid grid-2">
+                        <div class="form-group">
+                            <label for="ddlGender">Gender</label>
+                            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-input">
+                                <asp:ListItem Text="Select gender" Value="" />
+                                <asp:ListItem Text="Female" Value="Female" />
+                                <asp:ListItem Text="Male" Value="Male" />
+                                <asp:ListItem Text="Other" Value="Other" />
+                            </asp:DropDownList>
+                            <asp:RequiredFieldValidator ID="rfvGender" runat="server" ControlToValidate="ddlGender"
+                                ErrorMessage="Please select your gender." CssClass="error-text" Display="Dynamic" InitialValue="" />
+                            <small class="field-hint">Companion accounts are currently open to female applicants only. An administrator checks this against your valid ID.</small>
+                        </div>
+                    </div>
+
                     <!-- ROW 3: Rate per Hour & Valid ID Upload -->
                     <div class="form-grid grid-2">
                         <div class="form-group">

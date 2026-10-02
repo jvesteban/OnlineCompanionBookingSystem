@@ -196,6 +196,7 @@
     <Compile Include="App_Code\EmailHelper.cs" />
     <Compile Include="Helpers\BookingActivities.cs" />
     <Compile Include="Helpers\AvailabilityService.cs" />
+    <Compile Include="Helpers\CompanionGender.cs" />
     <Compile Include="Helpers\BookingStatus.cs" />
     <Compile Include="Helpers\CompanionUi.cs" />
     <Compile Include="Helpers\NavCounts.cs" />

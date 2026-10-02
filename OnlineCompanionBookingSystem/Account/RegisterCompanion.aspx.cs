@@ -32,6 +32,20 @@ namespace OnlineCompanionBookingSystem.Account
             string contact = txtContact.Text.Trim();
             string password = txtPassword.Text.Trim();
 
+            // Gender: the platform currently accepts female companions only. The page already requires a choice;
+            // the server checks the value again because browser checks can be bypassed.
+            string gender = ddlGender.SelectedValue;
+            if (!CompanionGender.IsValidOption(gender))
+            {
+                ShowSweetAlert("Gender Required", "Please select your gender.", "warning");
+                return;
+            }
+            if (gender != CompanionGender.AllowedGender)
+            {
+                ShowSweetAlert("Registration Not Available", "Companion accounts are currently open to female applicants only.", "info");
+                return;
+            }
+
             // Rate per hour: a whole number of pesos inside the allowed range. The page already checks this
             // (RangeValidator), but the server checks again because browser checks can be bypassed.
             int hourlyRateWhole;
@@ -103,6 +117,7 @@ namespace OnlineCompanionBookingSystem.Account
                     PasswordHash = PasswordHelper.HashPassword(password),
                     HourlyRate = hourlyRate,
                     Bio = ProfileValidator.NormalizeBio(txtBio.Text),
+                    Gender = gender,
                     Activities = selectedActivities,
                     DocPath = "~/Uploads/" + uniqueFileName,
                     DocPhysicalPath = filePath,

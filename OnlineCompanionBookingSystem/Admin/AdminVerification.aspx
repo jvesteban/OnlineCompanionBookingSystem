@@ -106,6 +106,7 @@
                                         <h4><%#: Eval("FullName") %></h4>
                                         <p class="v-email"><%#: Eval("Email") %></p>
                                         <p class="v-contact">Contact: <%#: Eval("ContactNo") %></p>
+                                        <p class="v-contact">Gender: <%#: OnlineCompanionBookingSystem.CompanionGender.Display(Eval("Gender")) %> <span class="v-gender-hint">(check against the ID)</span></p>
                                         <p class="v-activities">Activities: <%#: Eval("Activities") %></p>
                                     </div>
                                 </div>

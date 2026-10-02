@@ -55,6 +55,7 @@ namespace OnlineCompanionBookingSystem
             {
                 conn.Open();
                 EnsurePaymentsTable(conn);
+                if (p.Role == "Companion") CompanionGender.EnsureColumn(conn);   // adds CompanionProfiles.Gender if it is missing
 
                 // Lahat ng insert sa ibaba ay nasa iisang transaction: kung may pumalya, walang matitirang kalahating account
                 using (var tx = conn.BeginTransaction())
@@ -87,14 +88,15 @@ namespace OnlineCompanionBookingSystem
                     {
                         int companionId;
                         const string insertProfile = @"
-                            INSERT INTO CompanionProfiles (UserID, VerificationDocPath, VerificationStatus, Bio)
+                            INSERT INTO CompanionProfiles (UserID, VerificationDocPath, VerificationStatus, Bio, Gender)
                             OUTPUT INSERTED.CompanionID
-                            VALUES (@UserID, @DocPath, 'Pending', @Bio)";
+                            VALUES (@UserID, @DocPath, 'Pending', @Bio, @Gender)";
                         using (var cmd = new SqlCommand(insertProfile, conn, tx))
                         {
                             cmd.Parameters.AddWithValue("@UserID", userId);
                             cmd.Parameters.AddWithValue("@DocPath", p.DocPath);
                             cmd.Parameters.AddWithValue("@Bio", string.IsNullOrWhiteSpace(p.Bio) ? (object)DBNull.Value : p.Bio);
+                            cmd.Parameters.AddWithValue("@Gender", string.IsNullOrWhiteSpace(p.Gender) ? (object)DBNull.Value : p.Gender);
                             companionId = (int)cmd.ExecuteScalar();
                         }
 

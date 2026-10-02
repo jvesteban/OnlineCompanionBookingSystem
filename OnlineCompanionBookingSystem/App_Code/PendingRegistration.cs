@@ -18,6 +18,7 @@ namespace OnlineCompanionBookingSystem
         // Para sa Companion lang
         public decimal HourlyRate { get; set; }
         public string Bio { get; set; }               // optional "About You" text (null when empty)
+        public string Gender { get; set; }            // "Female" (the only gender accepted for companions); checked by the admin against the ID
         public List<string> Activities { get; set; } = new List<string>();
         public string DocPath { get; set; }           // "~/Uploads/xxxx.jpg"
         public string DocPhysicalPath { get; set; }   // para mabura kung ika-cancel

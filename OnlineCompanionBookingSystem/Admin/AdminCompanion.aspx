@@ -195,7 +195,8 @@
                                                     '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("TotalBookings")) %>',
                                                     '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("VerificationStatus")) %>',
                                                     '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("VerificationDocPath")) %>',
-                                                    '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("Bio")) %>'
+                                                    '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("Bio")) %>',
+                                                    '<%#: OnlineCompanionBookingSystem.WebSafe.Js(OnlineCompanionBookingSystem.CompanionGender.Display(Eval("Gender"))) %>'
                                                 )">View</button>
 
                                             <asp:LinkButton ID="btnToggleStatus" runat="server" 
@@ -236,6 +237,10 @@
                         <div class="info-item">
                             <span class="info-label">Contact Number</span>
                             <span class="info-value" id="cpModalContact">&mdash;</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Gender</span>
+                            <span class="info-value" id="cpModalGender">&mdash;</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Activities</span>
@@ -313,7 +318,7 @@
 
         <script src="../Scripts/site.js"></script>
         <script type="text/javascript">
-            function openCompanionModal(name, email, contact, activities, rating, bookings, status, docPath, bio) {
+            function openCompanionModal(name, email, contact, activities, rating, bookings, status, docPath, bio, gender) {
                 var elName = document.getElementById('cpModalName');
                 var elEmail = document.getElementById('cpModalEmail');
                 var elContact = document.getElementById('cpModalContact');
@@ -334,6 +339,8 @@
                 if (elBookings) elBookings.textContent = bookings || '0';
                 if (elStatus) elStatus.textContent = status || '';
                 if (elBio) elBio.textContent = bio || 'No bio available.';
+                var elGender = document.getElementById('cpModalGender');
+                if (elGender) elGender.textContent = gender || 'Not provided';
 
                 if (elDoc) {
                     if (docPath && docPath !== '') {
