@@ -24,7 +24,6 @@ namespace OnlineCompanionBookingManagementSystem.Customer
         protected global::System.Web.UI.WebControls.Literal litDropdownName;
         protected global::System.Web.UI.WebControls.Literal litDropdownEmail;
         protected global::System.Web.UI.WebControls.HyperLink hlProfileLink;
-        protected global::System.Web.UI.WebControls.HyperLink hlSettingsLink;
         protected global::System.Web.UI.WebControls.Button btnDropdownLogout;
         protected global::System.Web.UI.WebControls.Panel pnlMessage;
         protected global::System.Web.UI.WebControls.Literal litMessage;
