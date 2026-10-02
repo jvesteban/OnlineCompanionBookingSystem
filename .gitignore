@@ -1,0 +1,15 @@
+# Visual Studio / build output
+.vs/
+bin/
+obj/
+packages/
+*.user
+*.suo
+_program files_git/
+
+# Secrets and machine-specific settings: keep Web.config.example in the repo instead
+OnlineCompanionBookingSystem/Web.config
+
+# Files uploaded by real users (profile photos, ID documents)
+OnlineCompanionBookingSystem/Uploads/*
+!OnlineCompanionBookingSystem/Uploads/.gitkeep
