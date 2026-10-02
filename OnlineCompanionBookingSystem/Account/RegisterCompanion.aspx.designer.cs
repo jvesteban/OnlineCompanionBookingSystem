@@ -195,22 +195,22 @@ namespace OnlineCompanionBookingSystem.Account
         protected global::System.Web.UI.WebControls.CustomValidator cvDocFile;
 
         /// <summary>
-        /// ddlGender control.
+        /// chkConfirmFemale control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender;
+        protected global::System.Web.UI.WebControls.CheckBox chkConfirmFemale;
 
         /// <summary>
-        /// rfvGender control.
+        /// cvConfirmFemale control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvGender;
+        protected global::System.Web.UI.WebControls.CustomValidator cvConfirmFemale;
 
         /// <summary>
         /// cblActivities control.

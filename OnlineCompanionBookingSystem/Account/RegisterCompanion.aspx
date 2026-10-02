@@ -121,19 +121,19 @@
                         </div>
                     </div>
 
-                    <!-- ROW 2B: Gender (the platform accepts female companions only; the admin checks it against the ID) -->
+                    <!-- ROW 2B: Gender. Companion accounts are for female applicants only, so the value is fixed to Female
+                         and the applicant confirms it; the admin checks it against the valid ID. -->
                     <div class="form-grid grid-2">
                         <div class="form-group">
-                            <label for="ddlGender">Gender</label>
-                            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-input">
-                                <asp:ListItem Text="Select gender" Value="" />
-                                <asp:ListItem Text="Female" Value="Female" />
-                                <asp:ListItem Text="Male" Value="Male" />
-                                <asp:ListItem Text="Other" Value="Other" />
-                            </asp:DropDownList>
-                            <asp:RequiredFieldValidator ID="rfvGender" runat="server" ControlToValidate="ddlGender"
-                                ErrorMessage="Please select your gender." CssClass="error-text" Display="Dynamic" InitialValue="" />
-                            <small class="field-hint">Companion accounts are currently open to female applicants only. An administrator checks this against your valid ID.</small>
+                            <label for="txtGenderFixed">Gender</label>
+                            <input type="text" id="txtGenderFixed" class="form-input" value="Female" readonly="readonly" aria-readonly="true" />
+                            <div class="checkbox-group">
+                                <asp:CheckBox ID="chkConfirmFemale" runat="server" />
+                                <label for="chkConfirmFemale">I confirm that I am female.</label>
+                            </div>
+                            <asp:CustomValidator ID="cvConfirmFemale" runat="server" ErrorMessage="Please confirm that you are female to continue."
+                                CssClass="error-text" Display="Dynamic" OnServerValidate="cvConfirmFemale_ServerValidate" />
+                            <small class="field-hint">Companion accounts are open to female applicants only. An administrator checks this against your valid ID.</small>
                         </div>
                     </div>
 

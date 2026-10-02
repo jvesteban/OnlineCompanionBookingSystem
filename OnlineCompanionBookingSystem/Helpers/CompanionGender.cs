@@ -10,16 +10,9 @@ namespace OnlineCompanionBookingSystem
     /// </summary>
     public static class CompanionGender
     {
-        // The only gender accepted for new companion registrations. Change it here if the rule ever changes.
+        // The only gender accepted for companion registrations. The registration form shows it as a fixed value that the
+        // applicant confirms; change it here if the rule ever changes.
         public const string AllowedGender = "Female";
-
-        // The choices shown on the registration form
-        public static readonly string[] Options = { "Female", "Male", "Other" };
-
-        public static bool IsValidOption(string value)
-        {
-            return Array.IndexOf(Options, value) >= 0;
-        }
 
         // Adds the Gender column when it is missing, so the pages work even before Database/add_gender_column.sql was run.
         // Safe to call every time: nothing happens when the column already exists.

@@ -32,19 +32,9 @@ namespace OnlineCompanionBookingSystem.Account
             string contact = txtContact.Text.Trim();
             string password = txtPassword.Text.Trim();
 
-            // Gender: the platform currently accepts female companions only. The page already requires a choice;
-            // the server checks the value again because browser checks can be bypassed.
-            string gender = ddlGender.SelectedValue;
-            if (!CompanionGender.IsValidOption(gender))
-            {
-                ShowSweetAlert("Gender Required", "Please select your gender.", "warning");
-                return;
-            }
-            if (gender != CompanionGender.AllowedGender)
-            {
-                ShowSweetAlert("Registration Not Available", "Companion accounts are currently open to female applicants only.", "info");
-                return;
-            }
+            // Gender is fixed: companion accounts are for female applicants only. The applicant confirms it with the
+            // checkbox (checked by cvConfirmFemale), and the admin checks it against the valid ID.
+            string gender = CompanionGender.AllowedGender;
 
             // Rate per hour: a whole number of pesos inside the allowed range. The page already checks this
             // (RangeValidator), but the server checks again because browser checks can be bypassed.
@@ -166,6 +156,12 @@ namespace OnlineCompanionBookingSystem.Account
         protected void cvActivities_ServerValidate(object source, ServerValidateEventArgs args)
         {
             args.IsValid = cblActivities.Items.Cast<ListItem>().Any(item => item.Selected);
+        }
+
+        // The applicant must tick "I confirm that I am female" (checked on the server because browser checks can be bypassed)
+        protected void cvConfirmFemale_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            args.IsValid = chkConfirmFemale.Checked;
         }
 
         protected void cvAgreeFee_ServerValidate(object source, ServerValidateEventArgs args)
