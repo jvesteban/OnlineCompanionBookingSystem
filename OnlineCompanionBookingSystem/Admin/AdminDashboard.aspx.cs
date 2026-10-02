@@ -227,11 +227,11 @@ namespace OnlineCompanionBookingSystem.Admin
 
             if (e.CommandName == "Approve")
             {
-                UpdateVerificationStatus(companionId, "Verified");
+                UpdateVerificationStatus(companionId, "Verified", DecisionReason.Read(Request));
             }
             else if (e.CommandName == "Reject")
             {
-                UpdateVerificationStatus(companionId, "Rejected");
+                RejectWithReason(companionId);
             }
 
             Response.Redirect("~/Admin/AdminDashboard.aspx");
@@ -242,7 +242,7 @@ namespace OnlineCompanionBookingSystem.Admin
         {
             if (int.TryParse(hfSelectedCompanionId.Value, out int companionId))
             {
-                UpdateVerificationStatus(companionId, "Verified");
+                UpdateVerificationStatus(companionId, "Verified", DecisionReason.Read(Request));
             }
             Response.Redirect("~/Admin/AdminDashboard.aspx");
         }
@@ -251,14 +251,22 @@ namespace OnlineCompanionBookingSystem.Admin
         {
             if (int.TryParse(hfSelectedCompanionId.Value, out int companionId))
             {
-                UpdateVerificationStatus(companionId, "Rejected");
+                RejectWithReason(companionId);
             }
             Response.Redirect("~/Admin/AdminDashboard.aspx");
         }
 
+        // A rejection must come with a reason (the dialog on the page asks for it; this checks again on the server)
+        private void RejectWithReason(int companionId)
+        {
+            string reason = DecisionReason.Read(Request);
+            if (reason.Length == 0) return;
+            UpdateVerificationStatus(companionId, "Rejected", reason);
+        }
+
         // Binabago ang VerificationStatus ("Verified" o "Rejected"). Kapag may na-update na row, nagpapadala ng email sa companion.
         // DateVerified ay nalalagyan lang kapag Verified. (Hindi nagpapadala ng in-app notification dito, di tulad ng Verification page.)
-        private void UpdateVerificationStatus(int companionId, string status)
+        private void UpdateVerificationStatus(int companionId, string status, string reason)
         {
             try
             {
@@ -285,7 +293,7 @@ namespace OnlineCompanionBookingSystem.Admin
                             {
                                 PaymentService.RestoreCompanionRegistrationPayment(companionId);
                             }
-                            EmailHelper.SendCompanionVerificationResultById(companionId, status == "Verified", refund);
+                            EmailHelper.SendCompanionVerificationResultById(companionId, status == "Verified", refund, reason);
                         }
                     }
                 }

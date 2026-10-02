@@ -113,7 +113,7 @@ namespace OnlineCompanionBookingSystem
 
         // Ipinapadala kapag nag-approve o nag-reject ang admin.
         // Kapag rejected at may refund, kasama sa email ang detalye ng ibinalik na bayad.
-        public static bool SendCompanionVerificationResult(string toEmail, string fullName, bool approved, RefundResult refund = null)
+        public static bool SendCompanionVerificationResult(string toEmail, string fullName, bool approved, RefundResult refund = null, string reason = null)
         {
             string name = HttpUtility.HtmlEncode(fullName);
             if (approved)
@@ -121,6 +121,7 @@ namespace OnlineCompanionBookingSystem
                 string content = $@"
 <p>Hello <strong>{name}</strong>,</p>
 <p>Great news! Your companion application has been <strong style='color:#28a745'>approved</strong>. Your account is now verified and visible to customers.</p>
+{ReasonBox("Reason for approval", string.IsNullOrWhiteSpace(reason) ? "Your submitted valid ID was reviewed and your details matched your registration." : reason)}
 <p>You can log in to complete your profile, set your availability, and start receiving booking requests.</p>";
                 return TrySend(toEmail, "OCBMS - Your Companion Account Has Been Approved",
                     Layout("Application Approved", content, "Log In to Your Account", LoginUrl()));
@@ -147,7 +148,8 @@ namespace OnlineCompanionBookingSystem
                 string content = $@"
 <p>Hello <strong>{name}</strong>,</p>
 <p>Thank you for your interest in becoming a companion. After reviewing your application, we are unable to approve it at this time.</p>
-<p>This may be due to an unclear or invalid verification document. If you believe this was a mistake, please contact <a href='mailto:support@ocbs.com'>support@ocbs.com</a> and our team will be glad to assist you.</p>
+{ReasonBox("Reason for this decision", string.IsNullOrWhiteSpace(reason) ? "Your application did not meet our verification requirements." : reason)}
+<p>If you believe this decision was a mistake, please contact <a href='mailto:support@ocbs.com'>support@ocbs.com</a> and our team will be glad to assist you.</p>
 {refundHtml}";
                 return TrySend(toEmail, refund != null && refund.Refunded
                         ? "OCBMS - Application Update and Refund " + refund.RefundReference
@@ -157,7 +159,7 @@ namespace OnlineCompanionBookingSystem
         }
 
         // Hahanapin ang email/pangalan ng companion gamit ang CompanionID at ipapadala ang resulta
-        public static bool SendCompanionVerificationResultById(int companionId, bool approved, RefundResult refund = null)
+        public static bool SendCompanionVerificationResultById(int companionId, bool approved, RefundResult refund = null, string reason = null)
         {
             try
             {
@@ -171,7 +173,7 @@ namespace OnlineCompanionBookingSystem
                     using (var r = cmd.ExecuteReader())
                     {
                         if (!r.Read()) return false;
-                        return SendCompanionVerificationResult(r["Email"].ToString(), r["FullName"].ToString(), approved, refund);
+                        return SendCompanionVerificationResult(r["Email"].ToString(), r["FullName"].ToString(), approved, refund, reason);
                     }
                 }
             }
@@ -183,19 +185,20 @@ namespace OnlineCompanionBookingSystem
         }
 
         // Ipinapadala kapag binawi (revoke) ng admin ang verification; bumabalik ang status sa Pending
-        public static bool SendCompanionVerificationRevoked(string toEmail, string fullName)
+        public static bool SendCompanionVerificationRevoked(string toEmail, string fullName, string reason = null)
         {
             string name = HttpUtility.HtmlEncode(fullName);
             string content = $@"
 <p>Hello <strong>{name}</strong>,</p>
 <p>Your companion verification has been <strong style='color:#b7791f'>revoked</strong> by our admin team, and your account is now back to <strong>Pending Verification</strong>.</p>
+{ReasonBox("Reason for this action", string.IsNullOrWhiteSpace(reason) ? "Your account no longer meets our verification requirements." : reason)}
 <p>Your profile will not be visible to customers, and you will not be able to receive new bookings until your account is verified again.</p>
 <p>If you have questions or believe this was a mistake, please contact <a href='mailto:support@ocbs.com'>support@ocbs.com</a>.</p>";
             return TrySend(toEmail, "OCBMS - Your Companion Verification Has Been Revoked",
                 Layout("Verification Revoked", content));
         }
 
-        public static bool SendCompanionVerificationRevokedById(int companionId)
+        public static bool SendCompanionVerificationRevokedById(int companionId, string reason = null)
         {
             try
             {
@@ -209,7 +212,7 @@ namespace OnlineCompanionBookingSystem
                     using (var r = cmd.ExecuteReader())
                     {
                         if (!r.Read()) return false;
-                        return SendCompanionVerificationRevoked(r["Email"].ToString(), r["FullName"].ToString());
+                        return SendCompanionVerificationRevoked(r["Email"].ToString(), r["FullName"].ToString(), reason);
                     }
                 }
             }
@@ -218,6 +221,14 @@ namespace OnlineCompanionBookingSystem
                 System.Diagnostics.Debug.WriteLine("EmailHelper lookup error: " + ex);
                 return false;
             }
+        }
+
+        // The "reason" block shown in the verification emails. The reason is typed by an admin, so it is HTML-encoded.
+        private static string ReasonBox(string label, string reason)
+        {
+            return "<div style='background:#f8f9fb;border-left:4px solid #007bff;border-radius:4px;padding:12px 16px;margin:16px 0'>" +
+                   "<div style='font-size:12px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px'>" + HttpUtility.HtmlEncode(label) + "</div>" +
+                   "<div style='color:#1a1a1a'>" + HttpUtility.HtmlEncode(reason) + "</div></div>";
         }
 
         // ===== Shared HTML layout para pare-pareho ang itsura ng lahat ng email =====

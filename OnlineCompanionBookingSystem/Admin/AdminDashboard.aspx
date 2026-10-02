@@ -8,6 +8,7 @@
     <link href="~/CSS/AdminDashboard.css" rel="stylesheet" runat="server" />
     <!-- Chart.js CDN para sa Visual Analytics Graphs -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <form id="form1" runat="server" action="AdminDashboard.aspx">
@@ -167,9 +168,9 @@
                                                     '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("VerificationDocPath")) %>',
                                                     '<%#: OnlineCompanionBookingSystem.WebSafe.Js(Eval("CompanionID")) %>'
                                                 ); return false;">View</button>
-                                            <asp:LinkButton ID="btnApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve"
+                                            <asp:LinkButton ID="btnApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve" data-decision="Approve" data-name='<%#: Eval("FullName") %>'
                                                 CommandName="Approve" CommandArgument='<%# Eval("CompanionID") %>' />
-                                            <asp:LinkButton ID="btnReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject"
+                                            <asp:LinkButton ID="btnReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject" data-decision="Reject" data-name='<%#: Eval("FullName") %>'
                                                 CommandName="Reject" CommandArgument='<%# Eval("CompanionID") %>' />
                                         </td>
                                     </tr>
@@ -297,9 +298,9 @@
                 <div class="admin-modal-footer" style="justify-content: space-between;">
                     <button type="button" class="admin-small-btn btn-reject" onclick="closeVerificationModal()">Close</button>
                     <div style="display: flex; gap: 8px;">
-                        <asp:LinkButton ID="btnModalApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve"
+                        <asp:LinkButton ID="btnModalApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve" data-decision="Approve" data-name-from="vModalName"
                             OnClick="btnModalApprove_Click" />
-                        <asp:LinkButton ID="btnModalReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject"
+                        <asp:LinkButton ID="btnModalReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject" data-decision="Reject" data-name-from="vModalName"
                             OnClick="btnModalReject_Click" />
                     </div>
                 </div>
@@ -413,6 +414,9 @@
                 }
             });
         </script>
+        <!-- The reason chosen in the dialog (Scripts/admin-decision.js) travels in this field -->
+        <input type="hidden" name="decisionReason" id="decisionReason" value="" />
+        <script src="../Scripts/admin-decision.js"></script>
         <script src="../Scripts/nav-counts.js"></script>
     </form>
 </body>

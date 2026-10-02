@@ -121,9 +121,9 @@
                                 <div class="v-card-right">
                                     <span class='<%# "pill " + Eval("StatusClass") %>'><%#: Eval("VerificationStatus") %></span>
                                     <div class="v-actions">
-                                        <asp:Button ID="btnApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve" CommandName="Approve" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() != "Verified" %>' />
-                                        <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject" CommandName="Reject" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() == "Pending" %>' />
-                                        <asp:Button ID="btnRevoke" runat="server" Text="Revoke" CssClass="admin-small-btn btn-reject" CommandName="Revoke" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() == "Verified" %>' />
+                                        <asp:Button ID="btnApprove" runat="server" Text="Approve" CssClass="admin-small-btn btn-approve" data-decision="Approve" data-name='<%#: Eval("FullName") %>' CommandName="Approve" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() != "Verified" %>' />
+                                        <asp:Button ID="btnReject" runat="server" Text="Reject" CssClass="admin-small-btn btn-reject" data-decision="Reject" data-name='<%#: Eval("FullName") %>' CommandName="Reject" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() == "Pending" %>' />
+                                        <asp:Button ID="btnRevoke" runat="server" Text="Revoke" CssClass="admin-small-btn btn-reject" data-decision="Revoke" data-name='<%#: Eval("FullName") %>' CommandName="Revoke" CommandArgument='<%# Eval("CompanionID") %>' Visible='<%# Eval("VerificationStatus").ToString() == "Verified" %>' />
                                     </div>
                                 </div>
                             </div>
@@ -176,6 +176,9 @@
         <div id="toast" class="toast"></div>
         <script src="../Scripts/site.js"></script>
 
+        <!-- The reason chosen in the dialog (Scripts/admin-decision.js) travels in this field -->
+        <input type="hidden" name="decisionReason" id="decisionReason" value="" />
+        <script src="../Scripts/admin-decision.js"></script>
         <script src="../Scripts/nav-counts.js"></script>
     </form>
 </body>

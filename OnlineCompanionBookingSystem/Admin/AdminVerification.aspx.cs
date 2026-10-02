@@ -283,6 +283,16 @@ namespace OnlineCompanionBookingSystem.Admin
             int companionId = Convert.ToInt32(e.CommandArgument);
             string actionText = "";
 
+            // The reason the admin gave in the dialog (shown to the companion). A rejection or revocation must have one.
+            string reason = DecisionReason.Read(Request);
+            if (DecisionReason.IsRequired(e.CommandName) && reason.Length == 0)
+            {
+                ShowSweetAlert("Reason Required", "Please choose a reason so the companion knows why.", "warning");
+                LoadVerifications(CurrentFilter, txtSearch.Text);
+                return;
+            }
+
+
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 string query = "";
@@ -311,7 +321,7 @@ namespace OnlineCompanionBookingSystem.Admin
                         cmd.ExecuteNonQuery();
                     }
 
-                    SendNotification(companionId, e.CommandName);
+                    SendNotification(companionId, e.CommandName, reason);
 
                     // Email sa companion para sa approve, reject, at revoke.
                     // Reject: ibinabalik muna ang registration fee (parehong paraan ng pagbabayad) at kasama sa email ang refund.
@@ -320,16 +330,16 @@ namespace OnlineCompanionBookingSystem.Admin
                     if (e.CommandName == "Reject")
                     {
                         refund = PaymentService.RefundCompanionRegistration(companionId);
-                        EmailHelper.SendCompanionVerificationResultById(companionId, false, refund);
+                        EmailHelper.SendCompanionVerificationResultById(companionId, false, refund, reason);
                     }
                     else if (e.CommandName == "Approve")
                     {
                         PaymentService.RestoreCompanionRegistrationPayment(companionId);
-                        EmailHelper.SendCompanionVerificationResultById(companionId, true);
+                        EmailHelper.SendCompanionVerificationResultById(companionId, true, null, reason);
                     }
                     else if (e.CommandName == "Revoke")
                     {
-                        EmailHelper.SendCompanionVerificationRevokedById(companionId);
+                        EmailHelper.SendCompanionVerificationRevokedById(companionId, reason);
                     }
 
                     string alertText = $"Companion verification has been {actionText} successfully.";
@@ -355,7 +365,7 @@ namespace OnlineCompanionBookingSystem.Admin
 
         // Gumagawa ng in-app notification para sa companion (lalabas sa Companion > Notifications).
         // Ang Notifications table ay nakabatay sa UserID, kaya hinahanap muna ang UserID mula sa CompanionID.
-        private void SendNotification(int companionId, string action)
+        private void SendNotification(int companionId, string action, string reason)
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -376,6 +386,10 @@ namespace OnlineCompanionBookingSystem.Admin
                     if (action == "Approve") message = "Your companion account has been verified by the administrator!";
                     else if (action == "Reject") message = "Your companion verification request was rejected.";
                     else if (action == "Revoke") message = "Your verification status has been reverted to pending.";
+
+                    // Add the admin's reason, and keep the whole text inside the 255-character Message column
+                    if (!string.IsNullOrWhiteSpace(reason)) message += " Reason: " + reason;
+                    if (message.Length > 255) message = message.Substring(0, 252) + "...";
 
                     string insertNotif = "INSERT INTO Notifications (UserID, Message, DateCreated, IsRead) VALUES (@UserID, @Message, GETDATE(), 0)";
                     using (SqlCommand cmd = new SqlCommand(insertNotif, conn))

@@ -87,6 +87,7 @@
     <Content Include="Handlers\NavCounts.ashx" />
     <Content Include="Scripts\ui-motion.js" />
     <Content Include="Scripts\input-limits.js" />
+    <Content Include="Scripts\admin-decision.js" />
     <Content Include="Scripts\booking-status.js" />
     <Content Include="Scripts\nav-counts.js" />
     <Content Include="Scripts\register-companion.js" />
@@ -197,7 +198,9 @@
     <Compile Include="App_Code\EmailHelper.cs" />
     <Compile Include="Helpers\BookingActivities.cs" />
     <Compile Include="Helpers\AvailabilityService.cs" />
+    <Compile Include="Helpers\DecisionReason.cs" />
     <Compile Include="Helpers\CompanionGender.cs" />
+    <Compile Include="Helpers\BookingConflicts.cs" />
     <Compile Include="Helpers\BookingStatus.cs" />
     <Compile Include="Helpers\CompanionUi.cs" />
     <Compile Include="Helpers\NavCounts.cs" />
