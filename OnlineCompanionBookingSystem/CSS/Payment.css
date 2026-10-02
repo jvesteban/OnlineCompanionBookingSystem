@@ -1,0 +1,375 @@
+/* ===== PAYMENT / CHECKOUT PAGE (Account/Payment.aspx) ===== */
+.pay-page {
+    background: #f8fafc;
+}
+
+.pay-page .navbar {
+    justify-content: space-between;
+}
+
+.pay-secure-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: .4px;
+}
+
+.pay-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 40px 16px 64px;
+}
+
+.pay-card {
+    width: 100%;
+    max-width: 560px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 32px 36px 36px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, .06), 0 8px 10px -6px rgba(15, 23, 42, .04);
+}
+
+/* ---------- Progress steps ---------- */
+.pay-steps {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8;
+}
+
+.pay-steps li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.pay-steps li:not(:last-child)::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    margin: 0 12px;
+    background: #e2e8f0;
+}
+
+.pay-steps li span {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    background: #e2e8f0;
+    color: #64748b;
+}
+
+.pay-steps li.active {
+    color: #0f172a;
+}
+
+.pay-steps li.active span {
+    background: #0284c7;
+    color: #ffffff;
+}
+
+.pay-steps li.done {
+    color: #0f172a;
+}
+
+.pay-steps li.done span {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+/* ---------- Demo notice ---------- */
+.demo-banner {
+    margin-bottom: 22px;
+    padding: 10px 14px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    color: #92400e;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* ---------- Summary rows ---------- */
+.pay-summary {
+    margin-bottom: 26px;
+}
+
+.pay-summary h3,
+.pay-h {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.sum-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    padding: 9px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.sum-row strong {
+    color: #0f172a;
+    font-weight: 600;
+    text-align: right;
+    word-break: break-word;
+}
+
+.sum-row.total {
+    border-bottom: none;
+    padding-top: 14px;
+    font-size: 15px;
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.sum-row.total strong {
+    font-size: 22px;
+    color: #0284c7;
+    font-weight: 800;
+}
+
+/* ---------- Payment method cards ---------- */
+.method-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.method {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    column-gap: 12px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+.method:hover {
+    border-color: #94a3b8;
+}
+
+.method.selected,
+.method:has(input:checked) {
+    border-color: #0284c7;
+    background: #f0f9ff;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, .12);
+}
+
+.method input {
+    grid-row: 1 / span 2;
+    margin: 0;
+    accent-color: #0284c7;
+    width: 16px;
+    height: 16px;
+}
+
+.method-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.method-desc {
+    grid-column: 2;
+    font-size: 12.5px;
+    color: #64748b;
+}
+
+/* ---------- Buttons ---------- */
+.pay-btn {
+    display: block;
+    width: 100%;
+    padding: 13px 0;
+    background: #0f172a;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color .2s ease, transform .1s ease;
+}
+
+.pay-btn:hover {
+    background: #0284c7;
+}
+
+.pay-btn:active {
+    transform: scale(.99);
+}
+
+.pay-btn.busy {
+    background: #64748b;
+    cursor: progress;
+    pointer-events: none;
+}
+
+.pay-link {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 0;
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.pay-link:hover {
+    color: #0f172a;
+    text-decoration: underline;
+}
+
+.pay-error {
+    display: block;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #b91c1c;
+    font-size: 14px;
+}
+
+/* ---------- Authorize (mock provider) ---------- */
+.auth-box {
+    margin-bottom: 22px;
+    padding: 20px 22px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.auth-box-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.auth-provider {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.auth-sandbox {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: #92400e;
+    background: #fef3c7;
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.auth-line {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.auth-amount {
+    margin: 4px 0 14px;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #0f172a;
+}
+
+.auth-box .sum-row:last-child {
+    border-bottom: none;
+}
+
+/* ---------- Success ---------- */
+.pay-success {
+    text-align: center;
+}
+
+.success-mark {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    margin: 4px auto 18px;
+    border-radius: 50%;
+    background: #10b981;
+    box-shadow: 0 8px 20px -6px rgba(16, 185, 129, .6);
+}
+
+.success-mark::after {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 14px;
+    width: 14px;
+    height: 27px;
+    border: solid #ffffff;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+}
+
+.pay-success h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.success-lead {
+    margin: 0 auto 24px;
+    max-width: 420px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #64748b;
+}
+
+.receipt {
+    margin-bottom: 18px;
+    padding: 6px 20px 10px;
+    text-align: left;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+}
+
+.success-note {
+    margin: 0 0 22px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+@media (max-width: 520px) {
+    .pay-card {
+        padding: 24px 20px 28px;
+    }
+
+    .pay-steps li:not(:last-child)::after {
+        margin: 0 6px;
+    }
+}

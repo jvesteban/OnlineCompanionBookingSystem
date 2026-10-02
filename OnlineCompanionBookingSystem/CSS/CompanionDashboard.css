@@ -1,0 +1,1114 @@
+:root {
+    /* Companion dashboard palette aligned with the existing OCBMS theme. */
+    --navy: #0f172a;
+    --blue: #0284c7;
+    --bg: #f8fafc;
+    --border: #e2e8f0;
+    --muted: #64748b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Always keep the page scrollbar visible. Without this, short pages have no scrollbar and long pages do, which makes
+   the page 15px wider/narrower and shifts the top bar (and the profile button) sideways when you change pages. */
+html {
+    overflow-y: scroll;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #0f172a;
+    background: var(--bg);
+}
+
+.dashboard-wrapper {
+    /* Main two-column dashboard shell. */
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    /* Exactly one screen tall and fixed while the page scrolls, so the Sign Out button is always at the bottom of the
+       screen on every page (before, the sidebar was as tall as the page, so Sign Out moved from page to page). */
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    align-self: flex-start;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px 0;
+    background: var(--navy);
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 24px 24px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.sidebar-logo img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
+/* Prevent legacy pages from rendering the brand twice while their shared markup is
+   being migrated to the common Companion layout. */
+.sidebar-logo .brand-title + .brand-title {
+    display: none;
+}
+
+.brand-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 20px 16px;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 13px 14px;
+    border-radius: 8px;
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+    color: #fff;
+    background: var(--blue);
+}
+
+.sidebar-footer {
+    padding: 0 16px;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: #cbd5e1;
+    background: transparent;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    color: #fff;
+    border-color: #64748b;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    /* Keeps the page title and account controls aligned across screen sizes. */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 44px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    /* Stays at the top while scrolling, so the profile button and Log Out are always in the same place */
+    position: sticky;
+    top: 0;
+    z-index: 30;
+}
+
+/* Title and subtitle always take one line each (long text is cut with "..."), so the top bar is the
+   same height on every page and the profile button never moves up or down. */
+.topbar-left {
+    min-width: 0;
+}
+
+.topbar-left h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topbar-subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.topbar-right {
+    flex-shrink: 0;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.topbar-icon-btn {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--navy);
+    text-decoration: none;
+}
+
+.notification-bell-icon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.companion-account-menu {
+    position: relative;
+    z-index: 20;
+}
+
+.companion-account-menu .topbar-user {
+    min-height: 48px;
+    padding: 4px 12px 4px 4px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease;
+}
+
+.companion-account-menu .topbar-user:hover,
+.companion-account-menu .topbar-user:focus-visible {
+    border-color: var(--border);
+    background: #f8fafc;
+    outline: none;
+}
+
+.dropdown-arrow {
+    margin-left: 3px;
+    color: var(--muted);
+    font-size: 12px;
+    transition: transform .18s ease;
+}
+
+.companion-account-menu.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.companion-account-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 240px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, .1);
+    display: none;
+    z-index: 2000;
+    overflow: hidden;
+    animation: companionFadeInDropdown .2s ease;
+}
+
+.companion-account-dropdown.show,
+.companion-account-menu.open .companion-account-dropdown {
+    display: block !important;
+    visibility: visible;
+    opacity: 1;
+}
+
+@keyframes companionFadeInDropdown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.companion-account-dropdown .dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8fafc;
+}
+
+.companion-account-dropdown .dropdown-avatar-lg {
+    width: 42px;
+    height: 42px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.companion-account-dropdown .dropdown-avatar-img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.companion-account-dropdown .dropdown-user-info {
+    overflow: hidden;
+}
+
+.companion-account-dropdown .dropdown-fullname,
+.companion-account-dropdown .dropdown-email {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.companion-account-dropdown .dropdown-fullname {
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.companion-account-dropdown .dropdown-email {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.companion-account-dropdown .dropdown-divider {
+    height: 1px;
+    background: var(--border);
+}
+
+.companion-account-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* Every row has the same height, whether it is a link or the Log Out button, so the dropdown is the same
+       size (and Log Out is in the same spot) on every page. */
+    height: 42px;
+    padding: 0 16px;
+    border: 0;
+    color: var(--navy);
+    background: transparent;
+    /* Buttons use their own font (Arial) unless told to inherit the page's font */
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.companion-account-dropdown .dropdown-item .ui-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.companion-account-dropdown .dropdown-item:hover,
+.companion-account-dropdown .dropdown-item:focus-visible {
+    background: #f1f5f9;
+    outline: none;
+}
+
+.companion-account-dropdown .dropdown-logout-btn {
+    color: #ef4444;
+}
+
+.companion-account-dropdown .dropdown-logout-btn:hover {
+    background: #fef2f2;
+}
+
+.user-avatar,
+.booking-avatar {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Mahalaga para ma-crop ang larawan sa loob ng bilog */
+    position: relative;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+}
+
+.user-avatar-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Dashboard customer avatar image fix */
+.dashboard-customer-img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.user-role {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.dashboard-content {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 44px 52px;
+}
+
+.dashboard-content > * {
+    visibility: visible;
+    opacity: 1;
+}
+
+.welcome-banner {
+    /* Primary companion introduction and verification summary. */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 28px 32px;
+    border-radius: 14px;
+    color: #fff;
+    background: linear-gradient(120deg, #0f172a, #075985);
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: #bae6fd;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.welcome-banner h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.welcome-banner p:not(.eyebrow) {
+    margin: 0;
+    color: #dbeafe;
+    font-size: 14px;
+}
+
+.verification-summary {
+    min-width: 150px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .1);
+}
+
+.summary-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #bae6fd;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.verification-summary strong {
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.stats-grid {
+    /* Four summary cards become fewer columns through the responsive rules below. */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .05);
+}
+
+.stat-card h3 {
+    margin: 0 0 3px;
+    font-size: 24px;
+}
+
+.stat-card p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stat-icon {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.icon-blue {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.icon-orange {
+    color: #c2410c;
+    background: #ffedd5;
+}
+
+.icon-green {
+    color: #15803d;
+    background: #dcfce7;
+}
+
+.icon-purple {
+    color: #7e22ce;
+    background: #f3e8ff;
+}
+
+.ui-icon {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.7;
+}
+
+.content-card {
+    /* Shared card container for recent booking activity. */
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-header h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+}
+
+.section-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.notification-count {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.booking-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.booking-row:last-child {
+    border-bottom: 0;
+}
+
+.booking-avatar {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    font-size: 12px;
+}
+
+.booking-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.booking-details strong {
+    overflow: hidden;
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.booking-details span {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    color: #a16207;
+    background: #fef9c3;
+}
+
+.status-confirmed {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.status-completed {
+    color: #15803d;
+    background: #dcfce7;
+}
+
+.companion-reviews-card {
+    margin-top: 20px;
+}
+
+.review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.review-row {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.review-row:hover {
+    border-color: #bae6fd;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.07);
+}
+
+.review-avatar {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #0369a1);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.review-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.review-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-dark);
+    font-size: 14px;
+}
+
+.review-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.review-score .stars {
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.review-score .star-on {
+    color: #f59e0b;
+}
+
+.review-score .star-off {
+    color: #d1d5db;
+}
+
+.review-score-num {
+    color: #b45309;
+    font-size: 12px;
+    font-weight: 700;
+    background: #fef3c7;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.review-content time {
+    display: block;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 11.5px;
+}
+
+.review-content p.review-comment {
+    margin: 10px 0 0;
+    padding: 10px 12px;
+    color: var(--text-dark);
+    font-size: 13.5px;
+    line-height: 1.5;
+    background: #f8fafc;
+    border-left: 3px solid #0ea5e9;
+    border-radius: 0 8px 8px 0;
+}
+
+.review-content p.review-comment em {
+    color: var(--text-muted);
+}
+
+.status-cancelled {
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+.empty-state {
+    /* Shown when no booking records are returned for the companion. */
+    display: block;
+    padding: 34px 0 14px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    /* Reduce the statistics grid for tablet-sized screens. */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-content {
+        padding: 24px;
+    }
+
+    .topbar {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 620px) {
+    .companion-account-dropdown {
+        right: -4px;
+        width: min(258px, calc(100vw - 32px));
+    }
+
+    .companion-account-menu .user-meta {
+        display: none;
+    }
+    /* Compact navigation and stack content on small screens. */
+    .sidebar {
+        width: 76px;
+    }
+
+    .sidebar-logo {
+        justify-content: center;
+        padding: 16px 0;
+    }
+
+    .brand-title,
+    .sidebar-link span,
+    .logout-btn {
+        display: none;
+    }
+
+    .sidebar-nav {
+        padding: 20px 10px;
+    }
+
+    .sidebar-link {
+        text-align: center;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .user-meta {
+        display: none;
+    }
+
+    .welcome-banner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .verification-summary {
+        width: 100%;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-card {
+        padding: 18px;
+    }
+
+    .status-badge {
+        font-size: 10px;
+    }
+}
+
+/* =====================================================================
+   ANIMATIONS (shared by every Companion page)
+   Only opacity and transform are animated, so they stay smooth. The top bar and sidebar are not moved
+   (they stay exactly in place); only the page content, lists, and controls animate.
+   ===================================================================== */
+
+@keyframes companionRise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes companionFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes companionSlideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes companionDrop {
+    from { opacity: 0; transform: translateY(-8px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes companionBell {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(14deg); }
+    40% { transform: rotate(-12deg); }
+    60% { transform: rotate(8deg); }
+    80% { transform: rotate(-5deg); }
+}
+
+/* ---- Page content: sections rise in one after the other when a page opens ---- */
+.dashboard-content > * {
+    animation: companionRise .5s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.dashboard-content > *:nth-child(2) { animation-delay: .06s; }
+.dashboard-content > *:nth-child(3) { animation-delay: .12s; }
+.dashboard-content > *:nth-child(4) { animation-delay: .18s; }
+.dashboard-content > *:nth-child(5) { animation-delay: .24s; }
+.dashboard-content > *:nth-child(n+6) { animation-delay: .3s; }
+
+/* Statistic cards appear one by one */
+.stats-grid > .stat-card {
+    animation: companionRise .5s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.stats-grid > .stat-card:nth-child(1) { animation-delay: .1s; }
+.stats-grid > .stat-card:nth-child(2) { animation-delay: .17s; }
+.stats-grid > .stat-card:nth-child(3) { animation-delay: .24s; }
+.stats-grid > .stat-card:nth-child(4) { animation-delay: .31s; }
+
+/* ---- Lists (bookings, requests, notifications, reviews, activities, packages, availability): rows slide in one by one ---- */
+.booking-row,
+.request-row,
+.mybooking-row,
+.notification-row,
+.review-row,
+.activity-row,
+.package-row,
+.availability-list > * {
+    animation: companionSlideIn .4s ease both;
+}
+
+.booking-row:nth-child(1), .request-row:nth-child(1), .mybooking-row:nth-child(1), .notification-row:nth-child(1),
+.review-row:nth-child(1), .activity-row:nth-child(1), .package-row:nth-child(1), .availability-list > *:nth-child(1) { animation-delay: .12s; }
+.booking-row:nth-child(2), .request-row:nth-child(2), .mybooking-row:nth-child(2), .notification-row:nth-child(2),
+.review-row:nth-child(2), .activity-row:nth-child(2), .package-row:nth-child(2), .availability-list > *:nth-child(2) { animation-delay: .18s; }
+.booking-row:nth-child(3), .request-row:nth-child(3), .mybooking-row:nth-child(3), .notification-row:nth-child(3),
+.review-row:nth-child(3), .activity-row:nth-child(3), .package-row:nth-child(3), .availability-list > *:nth-child(3) { animation-delay: .24s; }
+.booking-row:nth-child(4), .request-row:nth-child(4), .mybooking-row:nth-child(4), .notification-row:nth-child(4),
+.review-row:nth-child(4), .activity-row:nth-child(4), .package-row:nth-child(4), .availability-list > *:nth-child(4) { animation-delay: .3s; }
+.booking-row:nth-child(n+5), .request-row:nth-child(n+5), .mybooking-row:nth-child(n+5), .notification-row:nth-child(n+5),
+.review-row:nth-child(n+5), .activity-row:nth-child(n+5), .package-row:nth-child(n+5), .availability-list > *:nth-child(n+5) { animation-delay: .36s; }
+
+/* Message banners (saved, error, ...) slide in from the top */
+.message-banner,
+.activity-message,
+.package-message {
+    animation: companionDrop .35s ease both;
+}
+
+/* ---- Hover and press effects ---- */
+.stat-card,
+.content-card,
+.activity-card,
+.package-card,
+.profile-card,
+.availability-card,
+.requests-container-card,
+.mybookings-container-card,
+.notifications-container-card {
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    border-color: #bae6fd;
+    box-shadow: 0 10px 22px -8px rgba(15, 23, 42, .16);
+}
+
+.booking-row,
+.request-row,
+.mybooking-row,
+.notification-row,
+.activity-row,
+.package-row {
+    transition: background-color .2s ease;
+}
+
+.booking-row:hover,
+.request-row:hover,
+.mybooking-row:hover,
+.notification-row:hover {
+    background-color: #f8fafc;
+}
+
+/* Sidebar: links slide a little on hover; the open page keeps its place */
+.sidebar-link {
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.sidebar-link:not(.active):hover {
+    transform: translateX(4px);
+}
+
+.logout-btn {
+    transition: color .2s ease, border-color .2s ease, background-color .2s ease, transform .12s ease;
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, .06);
+}
+
+/* Top bar: the bell rings on hover, the profile chip softly lifts */
+.topbar-icon-btn {
+    transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.topbar-icon-btn:hover {
+    background-color: #f1f5f9;
+}
+
+.topbar-icon-btn:hover .notification-bell-icon {
+    animation: companionBell .7s ease;
+    transform-origin: 50% 0;
+}
+
+.companion-account-menu .topbar-user:hover {
+    box-shadow: 0 4px 12px -4px rgba(15, 23, 42, .18);
+}
+
+/* The profile dropdown opens with a small drop-in */
+.companion-account-dropdown {
+    animation: companionDrop .22s ease;
+    transform-origin: top right;
+}
+
+/* Buttons everywhere: smooth color change, and a small press effect when clicked */
+button,
+input[type="submit"],
+.btn-primary,
+.btn-save,
+.btn-small,
+.btn-delete,
+.btn-primary-action,
+.btn-action-accept,
+.btn-action-decline,
+.btn-action-complete,
+.btn-action-read,
+.btn-action-danger,
+.btn-mark-all,
+.btn-upload-trigger {
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .12s ease;
+}
+
+button:not(:disabled):active,
+input[type="submit"]:active,
+.btn-primary:active,
+.btn-save:active,
+.btn-small:active,
+.btn-delete:active,
+.btn-primary-action:active,
+.btn-action-accept:active,
+.btn-action-decline:active,
+.btn-action-complete:active,
+.btn-action-read:active,
+.btn-action-danger:active,
+.btn-mark-all:active,
+.btn-upload-trigger:active {
+    transform: scale(.97);
+}
+
+/* Form fields glow softly when focused */
+.form-input,
+.activity-input,
+.package-input,
+.activity-edit-input,
+.package-edit-input {
+    transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+/* Profile photo and avatars grow a little on hover */
+.profile-big-avatar,
+.current-avatar-preview,
+.user-avatar {
+    transition: transform .25s ease;
+}
+
+.profile-big-avatar:hover,
+.current-avatar-preview:hover {
+    transform: scale(1.04);
+}
+
+/* Status badges fade their color changes */
+.status-badge {
+    transition: background-color .2s ease, color .2s ease;
+}
+
+/* ---- Respect the user's "reduce motion" setting: no movement, no delays ---- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+
+/* =====================================================================
+   BOOKING STATUS: "On-going" and "Awaiting Completion"
+   (worked out from the booking's date and time; see Helpers/BookingStatus.cs)
+   ===================================================================== */
+.status-ongoing {
+    color: #6d28d9;
+    background: #ede9fe;
+}
+
+/* A small pulsing dot shows that the service is happening right now */
+.status-ongoing::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #7c3aed;
+    animation: bookingLivePulse 1.6s ease-in-out infinite;
+}
+
+.status-awaiting {
+    color: #c2410c;
+    background: #ffedd5;
+}
+
+.booking-status-note {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.booking-status-note:empty {
+    display: none;
+}
+
+@keyframes bookingLivePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .35; transform: scale(.7); }
+}

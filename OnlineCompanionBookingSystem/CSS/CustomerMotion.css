@@ -1,0 +1,302 @@
+/* =====================================================================
+   CustomerMotion.css: animations and small layout fixes for every Customer page.
+   Loaded LAST on each Customer page, so it only adds to (never replaces) the page's own CSS.
+
+   How the animations are written:
+   - Only opacity and transform are animated, so they stay smooth.
+   - "animation-fill-mode: backwards" is used on purpose: the starting look is applied during the delay, but after the
+     animation ends the element goes back to its normal style. This leaves no leftover transform on the elements,
+     so the profile dropdown can never be hidden behind the content below it.
+   ===================================================================== */
+
+/* ---- Layout fix: keep the page scrollbar visible ----
+   Short pages have no scrollbar and long pages do, which makes the page about 15px narrower and shifts the top bar
+   (and the profile button) sideways when you change pages. */
+html {
+    overflow-y: scroll;
+}
+
+/* ---- Layout fix: the profile button in the top bar is the same size on every page ----
+   CustomerProfile.css made the small avatar 40px instead of 34px, so the profile button was bigger (and sat higher)
+   on that page only. */
+.topbar .user-avatar {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+}
+
+.topbar .topbar-avatar-img {
+    width: 34px;
+    height: 34px;
+}
+
+/* ---- Layout fix: the brand name shows only once in the sidebar logo ----
+   Several Customer pages contain the brand twice ("OCBMS OCBMS"); the extra one is hidden. */
+.sidebar-logo .brand-title + .brand-title {
+    display: none;
+}
+
+/* ---- Layout fix: the profile dropdown rows are the same size on every page ----
+   Links, and the Log Out button (a real button uses Arial unless told otherwise), now share one height and font. */
+.user-dropdown-card .dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.user-dropdown-card .dropdown-item .ui-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* ---- Keyframes ---- */
+@keyframes customerRise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes customerFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes customerSlideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes customerDrop {
+    from { opacity: 0; transform: translateY(-8px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes customerPop {
+    from { opacity: 0; transform: translateY(12px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes customerBell {
+    0%, 100% { transform: rotate(0); }
+    20% { transform: rotate(14deg); }
+    40% { transform: rotate(-12deg); }
+    60% { transform: rotate(8deg); }
+    80% { transform: rotate(-5deg); }
+}
+
+/* ---- Page content: sections rise in one after the other when a page opens ---- */
+.main-content > *:not(.topbar) {
+    animation: customerRise .5s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+.main-content > *:nth-child(3) { animation-delay: .06s; }
+.main-content > *:nth-child(4) { animation-delay: .12s; }
+.main-content > *:nth-child(5) { animation-delay: .18s; }
+.main-content > *:nth-child(6) { animation-delay: .24s; }
+.main-content > *:nth-child(n+7) { animation-delay: .3s; }
+
+/* The top bar only fades (no movement), so the profile dropdown inside it is never affected */
+.topbar {
+    animation: customerFade .4s ease backwards;
+}
+
+/* ---- Cards that appear one by one: statistics, companions, bookings, packages, notifications, reviews ---- */
+.stats-grid > .stat-card,
+.companion-cards-grid > *,
+.browse-companions-grid > *,
+.notifications-list > *,
+.packages-container > *,
+.review-item,
+.activity-pill {
+    animation: customerRise .5s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+.stats-grid > *:nth-child(1), .companion-cards-grid > *:nth-child(1), .browse-companions-grid > *:nth-child(1),
+.notifications-list > *:nth-child(1), .packages-container > *:nth-child(1), .review-item:nth-child(1), .activity-pill:nth-child(1) { animation-delay: .12s; }
+.stats-grid > *:nth-child(2), .companion-cards-grid > *:nth-child(2), .browse-companions-grid > *:nth-child(2),
+.notifications-list > *:nth-child(2), .packages-container > *:nth-child(2), .review-item:nth-child(2), .activity-pill:nth-child(2) { animation-delay: .19s; }
+.stats-grid > *:nth-child(3), .companion-cards-grid > *:nth-child(3), .browse-companions-grid > *:nth-child(3),
+.notifications-list > *:nth-child(3), .packages-container > *:nth-child(3), .review-item:nth-child(3), .activity-pill:nth-child(3) { animation-delay: .26s; }
+.stats-grid > *:nth-child(4), .companion-cards-grid > *:nth-child(4), .browse-companions-grid > *:nth-child(4),
+.notifications-list > *:nth-child(4), .packages-container > *:nth-child(4), .review-item:nth-child(4), .activity-pill:nth-child(4) { animation-delay: .33s; }
+.companion-cards-grid > *:nth-child(n+5), .browse-companions-grid > *:nth-child(n+5),
+.notifications-list > *:nth-child(n+5), .packages-container > *:nth-child(n+5), .review-item:nth-child(n+5), .activity-pill:nth-child(n+5) { animation-delay: .4s; }
+
+/* My Bookings table: rows slide in one by one */
+.table-bookings tbody tr {
+    animation: customerSlideIn .4s ease backwards;
+}
+
+.table-bookings tbody tr:nth-child(1) { animation-delay: .12s; }
+.table-bookings tbody tr:nth-child(2) { animation-delay: .18s; }
+.table-bookings tbody tr:nth-child(3) { animation-delay: .24s; }
+.table-bookings tbody tr:nth-child(4) { animation-delay: .3s; }
+.table-bookings tbody tr:nth-child(n+5) { animation-delay: .36s; }
+
+/* Message boxes (saved, error, booking sent ...) drop in from the top */
+.message,
+.booking-message,
+.rate-message {
+    animation: customerDrop .35s ease backwards;
+}
+
+/* Pop-ups (companion quick view, booking details) fade in and the card pops up */
+.companion-modal-overlay {
+    animation: customerFade .25s ease backwards;
+}
+
+.companion-modal-overlay .companion-modal-card {
+    animation: customerPop .3s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+.notification-modal.show .notification-modal-backdrop {
+    animation: customerFade .25s ease backwards;
+}
+
+.notification-modal.show .notification-modal-card {
+    animation: customerPop .3s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+/* ---- Hover and press effects ---- */
+.stat-card,
+.companion-card,
+.browse-card,
+.notif-card,
+.package-card-item,
+.upcoming-card,
+.profile-card,
+.rate-card {
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.stat-card:hover,
+.companion-card:hover,
+.browse-card:hover {
+    transform: translateY(-4px);
+    border-color: #bae6fd;
+    box-shadow: 0 12px 24px -10px rgba(15, 23, 42, .2);
+}
+
+.notif-card:hover,
+.package-card-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px -10px rgba(15, 23, 42, .18);
+}
+
+.table-bookings tbody tr {
+    transition: background-color .2s ease;
+}
+
+.table-bookings tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Sidebar: links slide a little on hover; the open page keeps its place */
+.sidebar-link:not(.active):hover {
+    transform: translateX(4px);
+}
+
+.sidebar-link,
+.logout-btn {
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+/* Top bar: the bell rings on hover, the profile chip softly lifts, and the dropdown drops in */
+.topbar-icon-btn:hover .notification-bell-icon {
+    animation: customerBell .7s ease;
+    transform-origin: 50% 0;
+}
+
+.topbar-user {
+    transition: background-color .2s ease, box-shadow .2s ease;
+}
+
+.topbar-user:hover {
+    box-shadow: 0 4px 12px -4px rgba(15, 23, 42, .18);
+}
+
+.user-dropdown-card.show {
+    animation: customerDrop .22s ease;
+    transform-origin: top right;
+}
+
+.dropdown-arrow {
+    transition: transform .2s ease;
+}
+
+/* Buttons everywhere: smooth color change, and a small press effect when clicked */
+button,
+input[type="submit"],
+.btn,
+.btn-action-primary,
+.btn-card-view,
+.btn-view-profile,
+.btn-filter-apply,
+.btn-filter-reset,
+.btn-book-pkg,
+.btn-save,
+.btn-primary,
+.btn-secondary,
+.btn-upload-trigger,
+.btn-mark-read,
+.notif-action {
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .12s ease;
+}
+
+button:not(:disabled):active,
+input[type="submit"]:active,
+.btn:active,
+.btn-action-primary:active,
+.btn-card-view:active,
+.btn-view-profile:active,
+.btn-filter-apply:active,
+.btn-filter-reset:active,
+.btn-book-pkg:active,
+.btn-save:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-upload-trigger:active,
+.btn-mark-read:active,
+.notif-action:active {
+    transform: scale(.97);
+}
+
+/* Form fields glow softly when focused */
+.form-input,
+.filter-input,
+.filter-select,
+.booking-input,
+.comment-input {
+    transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+
+/* Profile photos and avatars grow a little on hover */
+.profile-big-avatar,
+.current-avatar-preview,
+.profile-avatar {
+    transition: transform .25s ease;
+}
+
+.profile-big-avatar:hover,
+.current-avatar-preview:hover,
+.profile-avatar:hover {
+    transform: scale(1.04);
+}
+
+/* ---- Respect the user's "reduce motion" setting: no movement, no delays ---- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-delay: 0s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+}

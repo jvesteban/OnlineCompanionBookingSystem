@@ -1,0 +1,318 @@
+:root {
+    /* Package management colors are aligned with the Companion dashboard palette. */
+    --package-blue: #0284c7;
+    --package-border: #e2e8f0;
+    --package-muted: #64748b;
+}
+
+.packages-content {
+    max-width: 1160px;
+}
+
+.package-card {
+    /* Separate cards distinguish package creation from the existing package list. */
+    margin-bottom: 20px;
+    padding: 24px;
+    border: 1px solid var(--package-border);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .05);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--package-border);
+}
+
+.section-header h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+}
+
+.section-header p {
+    margin: 0;
+    color: var(--package-muted);
+    font-size: 12px;
+}
+
+.package-form-grid {
+    /* The form uses a wider name field and compact numeric fields on desktop. */
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field-wide,
+.form-field-full {
+    grid-column: span 1;
+}
+
+.form-field-full {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.form-field label span {
+    color: var(--package-muted);
+    font-weight: 400;
+}
+
+.package-input,
+.package-edit-input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--package-border);
+    border-radius: 8px;
+    color: #0f172a;
+    font: inherit;
+    outline: none;
+}
+
+.package-input {
+    min-height: 40px;
+}
+
+.duration-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.duration-input-group .package-input {
+    min-width: 0;
+}
+
+.duration-input-group .package-input:first-child {
+    flex: 1;
+}
+
+.duration-unit {
+    flex: 0 0 92px;
+}
+
+.package-input:focus,
+.package-edit-input:focus {
+    border-color: var(--package-blue);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, .1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+.btn-primary {
+    min-height: 40px;
+    padding: 0 18px;
+    border: 1px solid var(--package-blue);
+    border-radius: 8px;
+    color: #fff;
+    background: var(--package-blue);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #0369a1;
+}
+
+.field-error,
+.package-message {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.field-error,
+.package-message.error {
+    color: #b91c1c;
+}
+
+.package-message {
+    margin-bottom: 18px;
+    padding: 13px 16px;
+    border: 1px solid;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.package-message.success {
+    border-color: #bbf7d0;
+    color: #15803d;
+    background: #f0fdf4;
+}
+
+.package-message.error {
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+.package-count {
+    color: var(--package-muted);
+    font-size: 12px;
+}
+
+.package-row {
+    /* Package details and row actions remain editable without leaving the page. */
+    display: grid;
+    grid-template-columns: 40px minmax(240px, 1fr) 155px 145px auto auto;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.package-row:last-child {
+    border-bottom: 0;
+}
+
+.package-icon {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.ui-icon {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8px;
+}
+
+.package-edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.package-edit-description {
+    color: var(--package-muted);
+    font-size: 11px;
+}
+
+.package-edit-number {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.package-edit-number .package-edit-input {
+    min-width: 0;
+}
+
+.package-edit-number .duration-number {
+    flex: 0 1 54px;
+}
+
+.duration-number {
+    min-width: 0;
+}
+
+.duration-unit {
+    flex: 1 1 76px;
+    min-width: 0;
+}
+
+.btn-small {
+    padding: 8px 10px;
+    border: 1px solid;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.btn-save {
+    border-color: #bae6fd;
+    color: #0369a1;
+    background: #f0f9ff;
+}
+
+.btn-delete {
+    border-color: #fecaca;
+    color: #b91c1c;
+    background: #fff;
+}
+
+.empty-state {
+    /* Shown when the companion has not created any packages yet. */
+    display: block;
+    padding: 28px 0 8px;
+    color: var(--package-muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 900px) {
+    /* Move row actions below the package fields on medium screens. */
+    .package-row {
+        grid-template-columns: 36px 1fr 155px 145px;
+    }
+
+    .package-row .btn-small {
+        grid-row: 2;
+    }
+
+    .package-row .btn-save {
+        grid-column: 2;
+    }
+
+    .package-row .btn-delete {
+        grid-column: 3 / 5;
+    }
+}
+
+@media (max-width: 620px) {
+    /* Stack form fields and package controls for narrow screens. */
+    .package-card {
+        padding: 18px;
+    }
+
+    .package-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-field-wide,
+    .form-field-full {
+        grid-column: auto;
+    }
+
+    .package-row {
+        grid-template-columns: 36px 1fr;
+    }
+
+    .package-edit-number,
+    .package-row .btn-small {
+        grid-column: 2;
+    }
+
+    .package-row .btn-delete {
+        grid-column: 2;
+    }
+}

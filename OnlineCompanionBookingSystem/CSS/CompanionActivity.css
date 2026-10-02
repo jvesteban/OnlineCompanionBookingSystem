@@ -1,0 +1,202 @@
+:root {
+    /* Activity management colors complement the Companion dashboard palette. */
+    --activity-blue: #0284c7;
+    --activity-border: #e2e8f0;
+    --activity-muted: #64748b;
+}
+
+.activities-content {
+    max-width: 1000px;
+}
+
+.activity-card {
+    /* Separate cards keep the add form and existing activity list readable. */
+    margin-bottom: 20px;
+    padding: 24px;
+    border: 1px solid var(--activity-border);
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .05);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--activity-border);
+}
+
+.section-header h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+}
+
+.section-header p {
+    margin: 0;
+    color: var(--activity-muted);
+    font-size: 12px;
+}
+
+.activity-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.activity-input,
+.activity-edit-input {
+    width: 100%;
+    padding: 11px 13px;
+    border: 1px solid var(--activity-border);
+    border-radius: 8px;
+    color: #0f172a;
+    font: inherit;
+    outline: none;
+}
+
+.activity-input:focus,
+.activity-edit-input:focus {
+    border-color: var(--activity-blue);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, .1);
+}
+
+.btn-primary {
+    flex: 0 0 auto;
+    padding: 0 18px;
+    border: 1px solid var(--activity-blue);
+    border-radius: 8px;
+    color: #fff;
+    background: var(--activity-blue);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: #0369a1;
+}
+
+.field-error,
+.activity-message {
+    display: block;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.field-error,
+.activity-message.error {
+    color: #b91c1c;
+}
+
+.activity-message {
+    margin-bottom: 18px;
+    padding: 13px 16px;
+    border: 1px solid;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.activity-message.success {
+    border-color: #bbf7d0;
+    color: #15803d;
+    background: #f0fdf4;
+}
+
+.activity-message.error {
+    border-color: #fecaca;
+    background: #fef2f2;
+}
+
+.activity-count {
+    color: var(--activity-muted);
+    font-size: 12px;
+}
+
+.activity-row {
+    /* Each row supports inline editing without leaving the page. */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.activity-row:last-child {
+    border-bottom: 0;
+}
+
+.activity-mark {
+    display: flex;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.ui-icon {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.btn-small {
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    border: 1px solid;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.btn-save {
+    border-color: #bae6fd;
+    color: #0369a1;
+    background: #f0f9ff;
+}
+
+.btn-delete {
+    border-color: #fecaca;
+    color: #b91c1c;
+    background: #fff;
+}
+
+.empty-state {
+    /* Displayed when the companion has not added any activities yet. */
+    display: block;
+    padding: 28px 0 8px;
+    color: var(--activity-muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    /* Stack controls on smaller screens for easier touch interaction. */
+    .activity-card {
+        padding: 18px;
+    }
+
+    .activity-form {
+        flex-direction: column;
+    }
+
+    .btn-primary {
+        min-height: 40px;
+    }
+
+    .activity-row {
+        flex-wrap: wrap;
+    }
+
+    .activity-edit-input {
+        width: calc(100% - 46px);
+    }
+}

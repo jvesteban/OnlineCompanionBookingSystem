@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<appSettings>
+		<add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+		<!-- SMTP settings for outgoing email. For Gmail: enable 2-Step Verification, then create an App Password. -->
+		<add key="Smtp:Host" value="smtp.gmail.com" />
+		<add key="Smtp:Port" value="587" />
+		<add key="Smtp:EnableSsl" value="true" />
+		<add key="Smtp:User" value="your.email@gmail.com" />
+		<add key="Smtp:Password" value="YOUR_GMAIL_APP_PASSWORD_HERE" />
+		<add key="Smtp:From" value="your.email@gmail.com" />
+		<add key="Smtp:FromName" value="Online Companion Booking Management System" />
+	</appSettings>
+
+	<connectionStrings>
+		<add name="OCBSConnectionString"
+			 connectionString="Server=YOUR_SERVER\SQLEXPRESS;Database=OnlineCompanionBookingManagementSystem_Database;Trusted_Connection=True;TrustServerCertificate=True;"
+			 providerName="System.Data.SqlClient" />
+	</connectionStrings>
+
+	<system.web>
+		<!-- Basahin ang .aspx bilang UTF-8 para hindi masira ang ★ — 🔔 at iba pang special characters -->
+		<globalization fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8" />
+		<compilation debug="true" targetFramework="4.7.2" />
+		<!-- Max upload size in KB: 8 MB, so a 5 MB ID photo (the page's own limit) is not blocked by the default 4 MB -->
+		<!-- requestValidationMode 4.5 lets a single text box (like the "About You" box) turn off ASP.NET's tag
+		     detection with ValidateRequestMode="Disabled". Every other box still rejects "<tag>" input. -->
+		<httpRuntime targetFramework="4.7.2" maxRequestLength="8192" requestValidationMode="4.5" />
+		<sessionState mode="InProc" cookieless="UseCookies" timeout="30" />
+	</system.web>
+	<system.codedom>
+		<compilers>
+			<compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701" />
+			<compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+		</compilers>
+	</system.codedom>
+</configuration>

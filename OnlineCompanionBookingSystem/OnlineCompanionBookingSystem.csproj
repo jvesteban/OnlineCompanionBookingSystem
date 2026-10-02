@@ -1,0 +1,370 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0FF415F-67A7-4103-ACA7-CA6CE38B7E1F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OnlineCompanionBookingSystem</RootNamespace>
+    <AssemblyName>OnlineCompanionBookingSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44362</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Payment.aspx" />
+    <Content Include="Account\RegisterCompanion.aspx" />
+    <Content Include="Account\RegisterCustomer.aspx" />
+    <Content Include="Admin\AdminBookings.aspx" />
+    <Content Include="Admin\AdminCompanion.aspx" />
+    <Content Include="Admin\AdminCustomers.aspx" />
+    <Content Include="Admin\AdminDashboard.aspx" />
+    <Content Include="Admin\AdminVerification.aspx" />
+    <Content Include="Companion\CompanionAvailability.aspx" />
+    <Content Include="Companion\CompanionBookingRequest.aspx" />
+    <Content Include="Companion\CompanionMybookings.aspx" />
+    <Content Include="Companion\CompanionNotifications.aspx" />
+    <Content Include="Companion\CompanionProfile.aspx" />
+    <Content Include="CSS\AdminBookings.css" />
+    <Content Include="CSS\CustomerMotion.css" />
+    <Content Include="CSS\Landing.css" />
+    <Content Include="Handlers\NavCounts.ashx" />
+    <Content Include="Scripts\ui-motion.js" />
+    <Content Include="Scripts\booking-status.js" />
+    <Content Include="Scripts\nav-counts.js" />
+    <Content Include="Scripts\register-companion.js" />
+    <Content Include="CSS\Payment.css" />
+    <Content Include="CSS\AdminCompanion.css" />
+    <Content Include="CSS\AdminCustomers.css" />
+    <Content Include="CSS\AdminDashboard.css" />
+    <Content Include="CSS\AdminVerification.css" />
+    <Content Include="CSS\BrowseCompanion.css" />
+    <Content Include="CSS\CompanionAvailability.css" />
+    <Content Include="CSS\CompanionBookingRequest.css" />
+    <Content Include="CSS\CompanionMyBookings.css" />
+    <Content Include="CSS\CompanionNotifications.css" />
+    <Content Include="CSS\CompanionProfile.css" />
+    <Content Include="CSS\CustomerCompanionProfile.css" />
+    <Content Include="CSS\CustomerDashboard.css" />
+    <Content Include="CSS\CustomerMyBookings.css" />
+    <Content Include="CSS\CustomerNotification.css" />
+    <Content Include="CSS\CustomerProfile.css" />
+    <Content Include="CSS\CompanionDashboard.css" />
+    <Content Include="CSS\CompanionActivity.css" />
+    <Content Include="CSS\CompanionPackages.css" />
+    <Content Include="CSS\Login.css" />
+    <Content Include="CSS\RegisterCompanion.css" />
+    <Content Include="CSS\RegisterCustomer.css" />
+    <Content Include="CSS\RateCompanion.css" />
+    <Content Include="CSS\site.css" />
+    <Content Include="Customer\BrowseCompanion.aspx" />
+    <Content Include="Customer\CompanionProfile.aspx" />
+    <Content Include="Customer\CustomerMyBookings.aspx" />
+    <Content Include="Customer\CustomerNotification.aspx" />
+    <Content Include="Customer\CustomerProfile.aspx" />
+    <Content Include="Customer\Dashboard.aspx" />
+    <Content Include="Companion\CompanionDashboard.aspx" />
+    <Content Include="Companion\CompanionActivity.aspx" />
+    <Content Include="Companion\CompanionPackages.aspx" />
+    <Content Include="Customer\RateCompanion.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Image\check.jpg" />
+    <Content Include="Image\hero-jogging.jpg" />
+    <Content Include="Image\hero-sightseeing.jpg" />
+    <Content Include="Image\hero.jpg" />
+    <Content Include="Image\logoo.png" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterCompanion.aspx.cs">
+      <DependentUpon>RegisterCompanion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterCompanion.aspx.designer.cs">
+      <DependentUpon>RegisterCompanion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterCustomer.aspx.cs">
+      <DependentUpon>RegisterCustomer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterCustomer.aspx.designer.cs">
+      <DependentUpon>RegisterCustomer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminBookings.aspx.cs">
+      <DependentUpon>AdminBookings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminBookings.aspx.designer.cs">
+      <DependentUpon>AdminBookings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminCompanion.aspx.cs">
+      <DependentUpon>AdminCompanion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminCompanion.aspx.designer.cs">
+      <DependentUpon>AdminCompanion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminCustomers.aspx.cs">
+      <DependentUpon>AdminCustomers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminCustomers.aspx.designer.cs">
+      <DependentUpon>AdminCustomers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AdminVerification.aspx.cs">
+      <DependentUpon>AdminVerification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AdminVerification.aspx.designer.cs">
+      <DependentUpon>AdminVerification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\EmailHelper.cs" />
+    <Compile Include="Helpers\BookingActivities.cs" />
+    <Compile Include="Helpers\AvailabilityService.cs" />
+    <Compile Include="Helpers\BookingStatus.cs" />
+    <Compile Include="Helpers\CompanionUi.cs" />
+    <Compile Include="Helpers\NavCounts.cs" />
+    <Compile Include="Helpers\PaymentService.cs" />
+    <Compile Include="Helpers\ProfileValidator.cs" />
+    <Compile Include="Helpers\WebSafe.cs" />
+    <Compile Include="App_Code\PasswordHelper.cs" />
+    <Compile Include="App_Code\PendingRegistration.cs" />
+    <Compile Include="App_Code\RegistrationService.cs" />
+    <Compile Include="Companion\CompanionAvailability.aspx.cs">
+      <DependentUpon>CompanionAvailability.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionAvailability.aspx.designer.cs">
+      <DependentUpon>CompanionAvailability.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionBookingRequest.aspx.cs">
+      <DependentUpon>CompanionBookingRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionBookingRequest.aspx.designer.cs">
+      <DependentUpon>CompanionBookingRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionMybookings.aspx.cs">
+      <DependentUpon>CompanionMybookings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionMybookings.aspx.designer.cs">
+      <DependentUpon>CompanionMybookings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionNotifications.aspx.cs">
+      <DependentUpon>CompanionNotifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionNotifications.aspx.designer.cs">
+      <DependentUpon>CompanionNotifications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionProfile.aspx.cs">
+      <DependentUpon>CompanionProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionProfile.aspx.designer.cs">
+      <DependentUpon>CompanionProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\BrowseCompanion.aspx.cs">
+      <DependentUpon>BrowseCompanion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\BrowseCompanion.aspx.designer.cs">
+      <DependentUpon>BrowseCompanion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CompanionProfile.aspx.cs">
+      <DependentUpon>CompanionProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CompanionProfile.aspx.designer.cs">
+      <DependentUpon>CompanionProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerMyBookings.aspx.cs">
+      <DependentUpon>CustomerMyBookings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerMyBookings.aspx.designer.cs">
+      <DependentUpon>CustomerMyBookings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerNotification.aspx.cs">
+      <DependentUpon>CustomerNotification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerNotification.aspx.designer.cs">
+      <DependentUpon>CustomerNotification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerProfile.aspx.cs">
+      <DependentUpon>CustomerProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerProfile.aspx.designer.cs">
+      <DependentUpon>CustomerProfile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\RateCompanion.aspx.cs">
+      <DependentUpon>RateCompanion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Customer\RateCompanion.aspx.designer.cs">
+      <DependentUpon>RateCompanion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionDashboard.aspx.cs">
+      <DependentUpon>CompanionDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionDashboard.aspx.designer.cs">
+      <DependentUpon>CompanionDashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionActivity.aspx.cs">
+      <DependentUpon>CompanionActivity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionActivity.aspx.designer.cs">
+      <DependentUpon>CompanionActivity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Companion\CompanionPackages.aspx.cs">
+      <DependentUpon>CompanionPackages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Companion\CompanionPackages.aspx.designer.cs">
+      <DependentUpon>CompanionPackages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54920</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44362/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+</Project>

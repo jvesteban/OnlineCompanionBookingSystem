@@ -1,0 +1,247 @@
+﻿/* ===== ADMIN VERIFICATION PAGE STYLES ===== */
+
+/* Filter & Search Layout Container */
+.v-filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 15px;
+    background: #ffffff;
+    padding: 16px 24px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.filter-tab {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    border-bottom: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.filter-tab:hover {
+    background-color: #e2e8f0;
+    color: #0f172a;
+}
+
+.filter-tab.active {
+    background-color: #0284c7;
+    color: #ffffff;
+    border-bottom-color: transparent;
+}
+
+.search-box {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-box .form-input {
+    width: 240px;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 13px;
+    background-color: #ffffff;
+    color: #0f172a;
+    box-sizing: border-box;
+}
+
+.search-box .form-input:focus {
+    outline: none;
+    border-color: #0284c7;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+}
+
+/* ===== VERIFICATION CARDS ===== */
+.verification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.verification-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e2e8f0;
+    flex-wrap: wrap;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.verification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+}
+
+.v-card-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 2;
+    min-width: 240px;
+}
+
+.v-avatar {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.v-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.v-info h4 {
+    color: #0f172a;
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.v-email, .v-contact, .v-activities {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0 0 2px 0;
+    font-weight: 500;
+}
+
+.v-card-middle {
+    flex: 1.5;
+    min-width: 180px;
+}
+
+.v-label {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin: 0 0 2px 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.v-value {
+    font-size: 13px;
+    color: #1e293b;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+/* Registration fee line on each application: green = paid, amber = refunded after a rejection, gray = no record */
+.v-fee {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.v-fee-paid {
+    color: #15803d;
+}
+
+.v-fee-refunded {
+    color: #b45309;
+}
+
+.v-fee-none {
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.v-doc-link {
+    font-size: 12px;
+    color: #0284c7;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.v-doc-link:hover {
+    text-decoration: underline;
+}
+
+.v-card-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex: 1;
+    min-width: 160px;
+}
+
+.v-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* Empty State Box */
+.empty-state-text {
+    display: block;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    font-weight: 500;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 900px) {
+    .v-filter-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-box {
+        width: 100%;
+    }
+    .search-box .form-input {
+        width: 100% !important;
+    }
+    .verification-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .v-card-right {
+        align-items: flex-start;
+        width: 100%;
+    }
+    .v-actions {
+        width: 100%;
+    }
+    .v-actions .admin-small-btn {
+        flex: 1;
+        text-align: center;
+    }
+}

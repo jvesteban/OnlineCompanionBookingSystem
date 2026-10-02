@@ -1,0 +1,246 @@
+﻿/* ===== BOOKINGS TABLE CONTAINER & CARD ===== */
+.table-container-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+/* ===== MESSAGE NOTIFICATION ===== */
+.message {
+    display: block;
+    margin-bottom: 16px;
+    padding: 12px 18px;
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ===== MODERN GRIDVIEW TABLE ===== */
+.table-bookings {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+.table-bookings th {
+    background-color: #f8fafc;
+    color: var(--text-muted);
+    font-weight: 700;
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.table-bookings td {
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-dark);
+    font-size: 13.5px;
+    vertical-align: middle;
+}
+
+.table-bookings tr:last-child td {
+    border-bottom: none;
+}
+
+.table-bookings tr {
+    transition: background-color 0.15s ease;
+}
+
+.table-bookings tr:hover {
+    background-color: #f8fafc;
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 12px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.status-pending {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.status-confirmed {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-declined {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-cancelled {
+    background-color: #f1f5f9;
+    color: #64748b;
+}
+
+.status-completed {
+    background-color: #e0f2fe;
+    color: #0369a1;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.table-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.btn-cancel:hover {
+    background-color: #ef4444;
+    color: white;
+}
+
+.btn-rate {
+    background-color: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+}
+
+.btn-rate .ui-icon {
+    width: 14px;
+    height: 14px;
+    margin-right: 5px;
+    vertical-align: -2px;
+}
+
+.btn-rated {
+    background-color: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    cursor: default;
+}
+
+.btn-rate:hover {
+    background-color: #f59e0b;
+    color: white;
+}
+
+/* ===== EMPTY STATE DESIGN ===== */
+.empty-bookings-panel {
+    padding: 48px 24px;
+    text-align: center;
+    background: var(--card-bg);
+}
+
+.empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.empty-bookings-panel h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.empty-bookings-panel p {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-browse-action {
+    background-color: var(--accent-blue);
+    color: white;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s ease;
+}
+
+.btn-browse-action:hover {
+    background-color: #02689c;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 992px) {
+    .table-bookings th, .table-bookings td {
+        padding: 12px 14px;
+        font-size: 12.5px;
+    }
+}
+
+/* ===== "On-going" and "Awaiting Completion" (worked out from the booking's date and time) ===== */
+.status-ongoing {
+    background-color: #ede9fe;
+    color: #6d28d9;
+}
+
+.status-ongoing::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #7c3aed;
+    animation: bookingLivePulse 1.6s ease-in-out infinite;
+}
+
+.status-awaiting {
+    background-color: #ffedd5;
+    color: #c2410c;
+}
+
+.booking-status-note {
+    margin-top: 5px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #64748b;
+    max-width: 190px;
+    line-height: 1.4;
+}
+
+.booking-status-note:empty {
+    display: none;
+}
+
+@keyframes bookingLivePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .35; transform: scale(.7); }
+}
