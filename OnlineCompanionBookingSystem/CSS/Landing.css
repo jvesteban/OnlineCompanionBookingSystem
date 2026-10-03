@@ -215,32 +215,137 @@
     background: #94a3b8;
 }
 
-/* ---------- Hero slider ---------- */
-.landing .hero-slider {
-    width: 100%;
-    max-width: none;
-    margin: 56px 0 0;
+/* ---------- Hero carousel: centered image with the previous and next images peeking in from the sides ---------- */
+.landing .hero-carousel {
+    --slide-w: min(52vw, 960px);
+    --slide-gap: 6px;
+    position: relative;
+    margin: 56px -20px 0;   /* reaches the full width of the hero, past its side padding */
+}
+
+.landing .carousel-viewport {
+    position: relative;
+    height: calc(var(--slide-w) * 9 / 16);
+    overflow: hidden;
+}
+
+/* The slides share one spot and are moved sideways with --pos: -1 = previous, 0 = current, 1 = next (and -2 / 2 wait
+   off-screen at the two ends, so a picture always slides in from outside the screen) */
+.landing .carousel-slide {
+    --pos: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--slide-w);
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transform: translateX(calc(-50% + var(--pos) * (var(--slide-w) + var(--slide-gap))));
+    /* The image in the middle is sharp; the images on the sides are slightly blurred (--side is 0 in the middle, 1 elsewhere) */
+    filter: blur(calc(var(--side, 1) * 3px));
+    transition: transform .6s cubic-bezier(.4, 0, .2, 1), filter .6s cubic-bezier(.4, 0, .2, 1);   /* sliding and sharpening only: no fading */
+}
+
+.landing .carousel-slide[data-pos="prev"] { --pos: -1; }
+.landing .carousel-slide[data-pos="next"] { --pos: 1; }
+
+.landing .carousel-slide[data-pos="active"] {
+    --side: 0;
+    cursor: default;
+}
+
+/* A slide that jumps from one side to the other (the loop) must not fly across the screen */
+.landing .carousel-slide.is-jumping {
+    transition: none;
+}
+
+/* Half-round arrow tabs on the left and right edges of the page */
+.landing .carousel-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    width: 36px;
+    height: 72px;
     padding: 0;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+    border: 0;
+    background: var(--sky, #0284c7);
+    color: #fff;
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition: background-color .2s ease, width .2s ease;
 }
 
-/* margin sa halip na gap para eksakto ang -50% loop (walang "tumatalon") */
-.landing .slider-track {
-    gap: 0;
-    animation-duration: 40s;
+.landing .carousel-prev {
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 5px;
+    border-radius: 0 72px 72px 0;
 }
 
-.landing .hero-slider:hover .slider-track {
-    animation-play-state: paused;
+.landing .carousel-next {
+    right: 0;
+    justify-content: flex-end;
+    padding-right: 5px;
+    border-radius: 72px 0 0 72px;
 }
 
-.landing .slider-track img {
-    width: 400px;
-    height: 270px;
-    margin-right: 20px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
+.landing .carousel-btn:hover {
+    background: var(--sky-dark, #0369a1);
+    width: 40px;
+}
+
+.landing .carousel-btn:focus-visible,
+.landing .carousel-dot:focus-visible {
+    outline: 3px solid #0f172a;
+    outline-offset: 3px;
+}
+
+.landing .carousel-btn svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Dots: a ring for the other images, filled for the current one */
+.landing .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.landing .carousel-dot {
+    width: 11px;
+    height: 11px;
+    padding: 0;
+    border: 1.5px solid var(--sky, #0284c7);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color .25s ease, transform .2s ease;
+}
+
+.landing .carousel-dot:hover { transform: scale(1.15); }
+
+.landing .carousel-dot.is-active {
+    background: var(--sky, #0284c7);
+}
+
+/* Only for screen readers ("Image 2 of 3") */
+.landing .carousel-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 /* ---------- How it works ---------- */
@@ -650,9 +755,23 @@
         font-size: 16px;
     }
 
-    .landing .slider-track img {
-        width: 280px;
-        height: 190px;
+    .landing .hero-carousel {
+        --slide-w: 74vw;
+        --slide-gap: 4px;
+    }
+
+    .landing .carousel-viewport {
+        height: calc(var(--slide-w) * 3 / 4);
+    }
+
+    .landing .carousel-btn {
+        width: 28px;
+        height: 56px;
+    }
+
+    .landing .carousel-btn svg {
+        width: 17px;
+        height: 17px;
     }
 
     .landing .section-head h2,
@@ -681,8 +800,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .landing .slider-track {
-        animation: none;
+    .landing .carousel-slide,
+    .landing .carousel-btn,
+    .landing .carousel-dot {
+        transition: none;
     }
 
     .landing .reveal-hidden {

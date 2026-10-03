@@ -56,15 +56,27 @@
                 </ul>
             </div>
 
-            <div class="hero-slider">
-                <div class="slider-track" id="sliderTrack">
-                    <img src="Image/hero.jpg" alt="Companions enjoying a walk together" />
-                    <img src="Image/hero-jogging.jpg" alt="Companions jogging together" />
-                    <img src="Image/hero-sightseeing.jpg" alt="Companions sightseeing" />
-                    <img src="Image/hero.jpg" alt="" aria-hidden="true" />
-                    <img src="Image/hero-jogging.jpg" alt="" aria-hidden="true" />
-                    <img src="Image/hero-sightseeing.jpg" alt="" aria-hidden="true" />
+            <!-- Image carousel: the current image is in the middle, the previous and next ones peek in from the sides.
+                 It moves only when the visitor clicks an arrow, a dot, or a side image (no automatic sliding). -->
+            <div class="hero-carousel" id="heroCarousel" role="region" aria-roledescription="carousel" aria-label="Companion activities">
+                <div class="carousel-viewport">
+                    <img class="carousel-slide" data-pos="active" src="Image/hero.jpg" alt="Companions enjoying a walk together" decoding="async" />
+                    <img class="carousel-slide" data-pos="next" src="Image/hero-jogging.jpg" alt="Companions jogging together" loading="lazy" decoding="async" aria-hidden="true" />
+                    <img class="carousel-slide" data-pos="prev" src="Image/hero-sightseeing.jpg" alt="Companions sightseeing" loading="lazy" decoding="async" aria-hidden="true" />
+
+                    <button type="button" class="carousel-btn carousel-prev" aria-label="Previous image">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+                    </button>
+                    <button type="button" class="carousel-btn carousel-next" aria-label="Next image">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+                    </button>
                 </div>
+                <div class="carousel-dots" role="group" aria-label="Choose an image">
+                    <button type="button" class="carousel-dot is-active" aria-label="Show image 1" aria-current="true"></button>
+                    <button type="button" class="carousel-dot" aria-label="Show image 2"></button>
+                    <button type="button" class="carousel-dot" aria-label="Show image 3"></button>
+                </div>
+                <p class="carousel-status" aria-live="polite">Image 1 of 3</p>
             </div>
         </div>
 
@@ -215,6 +227,7 @@
 
         <!-- ===== TOAST NOTIFICATION ===== -->
         <div id="toast" class="toast"></div>
+        <script src="Scripts/hero-carousel.js"></script>
         <script src="Scripts/site.js"></script>
 
     </form>

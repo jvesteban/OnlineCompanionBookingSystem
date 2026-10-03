@@ -2,67 +2,10 @@
 // modals, and the toast helper). Each feature is guarded with "if (element exists)", so the same file is
 // safe to load on every page even when a page doesn't have that element.
 
-// ===== HERO IMAGE SLIDER (Auto & Seamless Loop) =====
-// Note: on the landing page the slider also scrolls through CSS (the scrollSlider animation); this script
-// only runs when the track exists, and sets a transform that the CSS animation overrides.
+// ===== PAGE START =====
+// (The landing page image carousel lives in Scripts/hero-carousel.js and never moves by itself.)
 document.addEventListener("DOMContentLoaded", function () {
     normalizeCompanionAccountDropdown();
-    const track = document.getElementById('sliderTrack');
-    if (track) {
-        let currentSlide = 0;
-        const totalRealSlides = 3;
-        const dots = document.querySelectorAll('.dot');
-
-        track.style.transition = 'transform 0.8s ease-in-out';
-
-        function nextSlide() {
-            currentSlide++;
-            track.style.transition = 'transform 0.8s ease-in-out';
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-            // Update dots kung mayroon man
-            if (dots && dots.length > 0) {
-                const activeDotIndex = currentSlide % totalRealSlides;
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === activeDotIndex);
-                });
-
-                // ===== CUSTOMER/COMPANION USER DROPDOWN =====
-                function toggleUserDropdown(event) {
-                    if (event) event.stopPropagation();
-
-                    const card = document.getElementById('userDropdownCard');
-                    if (!card) return;
-
-                    const isOpen = card.classList.toggle('show');
-                    card.style.display = isOpen ? 'block' : 'none';
-                    card.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-                }
-
-                document.addEventListener('click', function (event) {
-                    const card = document.getElementById('userDropdownCard');
-                    const container = document.getElementById('userMenuContainer');
-
-                    if (card && container && !container.contains(event.target)) {
-                        card.classList.remove('show');
-                        card.style.display = 'none';
-                        card.setAttribute('aria-hidden', 'true');
-                    }
-                });
-            }
-
-            // Kapag umabot na sa duplicate slide sa dulo, i-reset nang tahimik pabalik sa slide 0
-            if (currentSlide === totalRealSlides) {
-                setTimeout(() => {
-                    track.style.transition = 'none';
-                    currentSlide = 0;
-                    track.style.transform = `translateX(0%)`;
-                }, 800);
-            }
-        }
-
-        setInterval(nextSlide, 4000);
-    }
 });
 
 // Older Companion pages still contain the original compact account markup. Normalize it
