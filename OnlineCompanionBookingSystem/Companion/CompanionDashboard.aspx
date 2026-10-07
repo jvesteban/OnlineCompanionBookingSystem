@@ -188,7 +188,6 @@
         <script src="../Scripts/site.js"></script>
         <script src="../Scripts/nav-counts.js"></script>
         <script src="../Scripts/booking-status.js"></script>
-        <script src="../Scripts/ui-motion.js"></script>
     </form>
 </body>
 </html>

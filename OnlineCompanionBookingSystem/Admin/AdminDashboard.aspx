@@ -379,6 +379,7 @@
                             },
                             options: {
                                 responsive: true,
+                                animation: false,   // no animation: the bars and rings appear at once
                                 maintainAspectRatio: false,
                                 plugins: { legend: { display: false } },
                                 scales: {
@@ -404,6 +405,7 @@
                             },
                             options: {
                                 responsive: true,
+                                animation: false,   // no animation: the bars and rings appear at once
                                 maintainAspectRatio: false,
                                 plugins: {
                                     legend: { position: 'bottom', labels: { color: '#64748b', font: { size: 12 } } }

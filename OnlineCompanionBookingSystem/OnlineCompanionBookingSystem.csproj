@@ -85,7 +85,6 @@
     <Content Include="CSS\CustomerMotion.css" />
     <Content Include="CSS\Landing.css" />
     <Content Include="Handlers\NavCounts.ashx" />
-    <Content Include="Scripts\ui-motion.js" />
     <Content Include="Scripts\input-limits.js" />
     <Content Include="Scripts\admin-decision.js" />
     <Content Include="Scripts\hero-carousel.js" />
